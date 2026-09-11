@@ -1107,131 +1107,258 @@ footer {
 }
 
 /* ==========================================================================
-   14. RESPONSIVE OPTIMISÉ TOUS ÉCRANS (SMARTPHONE & TABLETTE)
+   14. RESPONSIVE MOBILE ULTRA-COMPACT (< 850px)
    ========================================================================== */
 @media (max-width: 850px) {
-  /* 1. Header épuré : on masque les liens superflus et on garde le bouton Contact */
+
+  /* 1. Header compact */
+  .navbar {
+    height: 54px !important;
+  }
+
   .nav-links a:not(.btn-nav) {
     display: none !important;
   }
 
   .brand-title {
-    font-size: 1.1rem;
+    font-size: 1.05rem !important;
   }
 
   .btn-nav {
-    padding: 0.4rem 0.9rem;
-    font-size: 0.82rem;
+    padding: 0.35rem 0.85rem !important;
+    font-size: 0.8rem !important;
   }
 
-  /* 2. Hero maîtrisé : pas de débordement plein écran */
+  /* 2. Réduction drastique des espacements verticaux */
+  .section {
+    padding: 2rem 1rem !important;
+  }
+
+  .section-header {
+    margin-bottom: 1.2rem !important;
+  }
+
+  .section-header h2 {
+    font-size: 1.5rem !important;
+  }
+
+  .section-header p {
+    font-size: 0.9rem !important;
+    margin-top: 0.2rem !important;
+  }
+
+  /* 3. Hero condensé : visible sans forcer le scroll */
   .hero-section {
-    min-height: auto;
-    padding-top: 85px;
-    padding-bottom: 2.5rem;
+    min-height: auto !important;
+    padding-top: 65px !important;
+    padding-bottom: 1.2rem !important;
+  }
+
+  .hero-text {
+    margin-bottom: 1rem !important;
+  }
+
+  .badge {
+    margin-bottom: 0.5rem !important;
+    padding: 0.25rem 0.7rem !important;
+    font-size: 0.72rem !important;
   }
 
   .hero-text h1 {
-    font-size: 2.1rem;
-    line-height: 1.2;
+    font-size: 1.65rem !important;
+    line-height: 1.2 !important;
   }
 
   .hero-text p {
-    font-size: 1rem;
+    font-size: 0.92rem !important;
+    margin-top: 0.4rem !important;
   }
 
   .image-wrapper {
-    width: 100%;
-    height: 300px;
-    min-height: unset;
+    width: 100% !important;
+    height: 200px !important;
+    min-height: unset !important;
+    border-radius: 14px !important;
   }
 
-  /* 3. Bandeau défilant (Ticker) horizontal garanti */
-  .photo-ticker-section {
-    padding: 1.5rem 0;
-  }
-
-  .photo-ticker-track {
-    gap: 0.75rem;
-  }
-
-  .photo-ticker-track img {
-    height: 150px;
-    border-radius: 10px;
-  }
-
-  /* 4. Barre de stats resserrée */
+  /* 4. Bandeau Chiffres clés : ALIGNÉ SUR 1 SEULE LIGNE HORIZONTALE */
   .stats-bar {
-    padding: 2rem 1.25rem;
+    padding: 1.2rem 0.8rem !important;
   }
 
   .stats-grid {
-    grid-template-columns: 1fr;
-    gap: 1.2rem;
+    display: grid !important;
+    grid-template-columns: repeat(3, 1fr) !important;
+    gap: 0.5rem !important;
+  }
+
+  .stat-item {
+    gap: 0.15rem !important;
   }
 
   .stat-num {
-    font-size: 2.1rem;
+    font-size: 1.35rem !important;
+    line-height: 1.1 !important;
   }
 
   .stat-label {
-    font-size: 0.9rem;
-    max-width: 100%;
+    font-size: 0.75rem !important;
+    line-height: 1.2 !important;
   }
 
-  /* 5. Sections éditoriales empilées */
-  .section {
-    padding: 3.2rem 1.25rem;
+  /* 5. Bandeau défilant (Ticker) */
+  .photo-ticker-section {
+    padding: 1rem 0 !important;
   }
 
+  .photo-ticker-track img {
+    height: 130px !important;
+  }
+
+  /* 6. Textes éditoriaux & Photos */
   .split-layout {
-    grid-template-columns: 1fr;
-    gap: 2rem;
+    grid-template-columns: 1fr !important;
+    gap: 1.2rem !important;
   }
 
   .split-layout.reverse {
-    direction: ltr;
+    direction: ltr !important;
   }
 
   .split-image {
-    height: 280px;
+    height: 220px !important;
+    border-radius: 14px !important;
   }
 
   .split-text h2 {
-    font-size: 1.75rem;
+    font-size: 1.45rem !important;
+    margin-bottom: 0.6rem !important;
   }
 
   .split-text p {
-    font-size: 0.98rem;
-    text-align: left;
+    font-size: 0.92rem !important;
+    line-height: 1.55 !important;
+    margin-bottom: 0.8rem !important;
+    text-align: left !important;
   }
 
-  /* 6. Mosaïque adaptée */
-  .mosaic-grid {
-    grid-template-columns: 1fr 1fr;
-    grid-auto-rows: 160px;
-    gap: 0.8rem;
+  /* 7. Déroulement (Processus 01 - 02 - 03) compact */
+  .process-section {
+    padding: 2rem 1rem !important;
   }
 
-  .mosaic-item.item-large {
-    grid-column: span 2;
+  .process-grid {
+    grid-template-columns: 1fr !important;
+    gap: 0.8rem !important;
   }
 
-  .mosaic-item.item-tall {
-    grid-row: span 1;
+  .process-card {
+    padding: 1.1rem 1.2rem !important;
+    border-radius: 14px !important;
+    display: flex !important;
+    flex-direction: column !important;
+    gap: 0.2rem !important;
   }
 
-  /* 7. Grille des tarifs : empilement vertical propre */
+  .step-number {
+    font-size: 1.4rem !important;
+    margin-bottom: 0.2rem !important;
+  }
+
+  .process-card h3 {
+    font-size: 1.05rem !important;
+    margin-bottom: 0.2rem !important;
+  }
+
+  .process-card p {
+    font-size: 0.88rem !important;
+    line-height: 1.45 !important;
+  }
+
+  /* 8. Tarifs condensés */
+  .pricing-section {
+    padding: 2rem 1rem !important;
+  }
+
   .pricing-grid {
-    grid-template-columns: 1fr;
-    gap: 1.5rem;
+    grid-template-columns: 1fr !important;
+    gap: 1.2rem !important;
   }
 
   .pricing-card {
-    padding: 1.8rem 1.5rem;
+    padding: 1.4rem 1.2rem !important;
+    border-radius: 16px !important;
+  }
+
+  .gallery-lead-img {
+    height: 160px !important;
+  }
+
+  .gallery-thumbnails img {
+    height: 55px !important;
+  }
+
+  .price {
+    font-size: 2rem !important;
+    margin: 0.8rem 0 0.1rem 0 !important;
+  }
+
+  /* 9. Avis clients : format carte condensé */
+  .reviews-section {
+    padding: 2rem 1rem !important;
+  }
+
+  .reviews-grid {
+    grid-template-columns: 1fr !important;
+    gap: 0.8rem !important;
+    margin-bottom: 1.8rem !important;
+  }
+
+  .review-card {
+    padding: 1.2rem !important;
+    border-radius: 14px !important;
+  }
+
+  .review-stars {
+    font-size: 0.95rem !important;
+    margin-bottom: 0.4rem !important;
+  }
+
+  .review-text {
+    font-size: 0.88rem !important;
+    line-height: 1.5 !important;
+    margin-bottom: 0.8rem !important;
+  }
+
+  .review-form-card {
+    padding: 1.4rem 1.2rem !important;
+    border-radius: 16px !important;
   }
 
   .form-row {
-    grid-template-columns: 1fr;
+    grid-template-columns: 1fr !important;
+    gap: 0.6rem !important;
+  }
+
+  /* 10. Contact & Footer */
+  .contact-section {
+    padding: 2.5rem 1rem !important;
+  }
+
+  .contact-desc {
+    font-size: 0.95rem !important;
+    margin-bottom: 1.4rem !important;
+  }
+
+  .contact-btn {
+    width: 100% !important;
+    padding: 0.85rem 1.2rem !important;
+    font-size: 0.95rem !important;
+    text-align: center !important;
+  }
+
+  footer {
+    padding: 1.8rem 1rem !important;
+    font-size: 0.8rem !important;
   }
 }
