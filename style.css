@@ -1,0 +1,1208 @@
+/* ==========================================================================
+   1. VARIABLES & RESET GLOBAL
+   ========================================================================== */
+:root {
+  --bg-color: #faf8f5;        /* Sable doux */
+  --bg-subtle: #f2ede4;       /* Sable chaud pour sections alternées */
+  --card-bg: #ffffff;
+  --card-border: #eae4d9;
+  --text-main: #231f20;       /* Noir chaud */
+  --text-muted: #6e675f;      /* Taupe / gris chaud */
+  --accent: #c85a32;          /* Terracotta */
+  --accent-hover: #b04823;
+  --accent-bg: rgba(200, 90, 50, 0.08);
+  --radius: 20px;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", "Segoe UI", Roboto, sans-serif;
+  background-color: var(--bg-color);
+  color: var(--text-main);
+  overflow-x: hidden;
+  line-height: 1.6;
+}
+
+/* ==========================================================================
+   2. STRUCTURE & TYPOGRAPHIE
+   ========================================================================== */
+.section {
+  padding: 7.5rem 1.5rem;
+}
+
+.container {
+  max-width: 1150px;
+  margin: 0 auto;
+}
+
+.container.narrow {
+  max-width: 740px;
+}
+
+.text-center {
+  text-align: center;
+}
+
+.section-tag {
+  font-size: 0.85rem;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--accent);
+  display: block;
+  margin-bottom: 0.6rem;
+  font-weight: 600;
+}
+
+.section-header {
+  text-align: center;
+  margin-bottom: 3.5rem;
+}
+
+.section-header h2 {
+  font-size: clamp(2rem, 3.5vw, 2.8rem);
+  letter-spacing: -0.02em;
+  font-weight: 700;
+  color: var(--text-main);
+}
+
+.section-header p {
+  color: var(--text-muted);
+  font-size: 1.1rem;
+  margin-top: 0.5rem;
+}
+
+/* Curseur zoom pour toutes les photos ouvrables */
+.zoomable, 
+.photo-ticker-track img {
+  cursor: pointer;
+}
+
+/* ==========================================================================
+   3. BARRE DE NAVIGATION (NAVBAR)
+   ========================================================================== */
+.navbar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 58px;
+  background: rgba(250, 248, 245, 0.85);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  z-index: 100;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+}
+
+.nav-container {
+  max-width: 1100px;
+  height: 100%;
+  margin: 0 auto;
+  padding: 0 1.5rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.brand-logo {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.75rem;
+  text-decoration: none;
+  color: var(--text-main);
+  transition: opacity 0.2s ease;
+}
+
+.brand-logo:hover {
+  opacity: 0.85;
+}
+
+.logo-symbol {
+  color: var(--text-main);
+  flex-shrink: 0;
+  transition: transform 0.25s ease;
+}
+
+.brand-logo:hover .logo-symbol {
+  transform: scale(1.05);
+}
+
+.brand-text {
+  display: flex;
+  flex-direction: column;
+  line-height: 1.05;
+}
+
+.brand-title {
+  font-size: 1.15rem;
+  font-weight: 700;
+  letter-spacing: -0.03em;
+  color: var(--text-main);
+}
+
+.brand-locality {
+  font-size: 0.72rem;
+  font-weight: 600;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--accent);
+  margin-top: 0.2rem;
+}
+
+.nav-links {
+  display: flex;
+  gap: 1.8rem;
+  align-items: center;
+}
+
+.nav-links a {
+  color: var(--text-muted);
+  text-decoration: none;
+  font-size: 0.9rem;
+  font-weight: 500;
+  transition: color 0.2s ease;
+}
+
+.nav-links a:hover {
+  color: var(--accent);
+}
+
+.btn-nav {
+  background: var(--text-main);
+  color: #ffffff !important;
+  padding: 0.45rem 1rem;
+  border-radius: 20px;
+  font-size: 0.85rem;
+}
+
+.btn-nav:hover {
+  background: var(--accent) !important;
+}
+
+/* ==========================================================================
+   4. ACCUEIL (HERO GSAP)
+   ========================================================================== */
+.hero-section {
+  height: 100vh;
+  width: 100%;
+  position: relative;
+  overflow: hidden;
+  background-color: var(--bg-color);
+}
+
+.hero-container {
+  height: 100vh;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  padding-top: 58px;
+}
+
+.hero-text {
+  text-align: center;
+  position: relative;
+  z-index: 10;
+  margin-bottom: 2rem;
+  pointer-events: none;
+}
+
+.badge {
+  display: inline-block;
+  font-size: 0.78rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--accent);
+  background: var(--accent-bg);
+  padding: 0.4rem 0.9rem;
+  border-radius: 20px;
+  margin-bottom: 1rem;
+}
+
+.hero-text h1 {
+  font-size: clamp(2.5rem, 5.5vw, 4.8rem);
+  font-weight: 700;
+  letter-spacing: -0.03em;
+  line-height: 1.1;
+  color: var(--text-main);
+}
+
+.hero-text p {
+  font-size: clamp(1.05rem, 1.8vw, 1.25rem);
+  color: var(--text-muted);
+  margin-top: 1rem;
+  max-width: 550px;
+  margin-inline: auto;
+}
+
+.image-wrapper {
+  width: 55vw;
+  height: 48vh;
+  border-radius: var(--radius);
+  overflow: hidden;
+  box-shadow: 0 20px 45px -10px rgba(70, 50, 40, 0.15);
+  z-index: 1;
+}
+
+.image-wrapper img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* ==========================================================================
+   5. BANDEAU DE PHOTOS DÉFILANTES (CARROUSEL CONTINU)
+   ========================================================================== */
+.photo-ticker-section {
+  width: 100%;
+  overflow: hidden;
+  background-color: var(--bg-color);
+  padding: 3.5rem 0;
+  border-top: 1px solid var(--card-border);
+  border-bottom: 1px solid var(--card-border);
+}
+
+.photo-ticker-track {
+  display: flex;
+  gap: 1.2rem;
+  width: max-content;
+  animation: defilementPhotos 38s linear infinite;
+}
+
+.photo-ticker-track:hover {
+  animation-play-state: paused;
+}
+
+.photo-ticker-track img {
+  height: 240px;
+  width: auto;
+  object-fit: cover;
+  border-radius: 14px;
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.06);
+  flex-shrink: 0;
+  transition: transform 0.25s ease;
+}
+
+.photo-ticker-track img:hover {
+  transform: scale(1.03);
+}
+
+@keyframes defilementPhotos {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
+
+/* ==========================================================================
+   6. BANDEAU STATS CHIFFRES CLÉS
+   ========================================================================== */
+.stats-bar {
+  background: var(--bg-subtle);
+  border-bottom: 1px solid var(--card-border);
+  padding: 3rem 1.5rem;
+}
+
+.stats-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 2rem;
+  text-align: center;
+}
+
+.stat-num {
+  display: block;
+  font-size: 2.4rem;
+  font-weight: 800;
+  color: var(--accent);
+  letter-spacing: -0.02em;
+}
+
+.stat-label {
+  font-size: 0.95rem;
+  color: var(--text-muted);
+  font-weight: 500;
+}
+
+/* ==========================================================================
+   7. SECTIONS ÉDITORIALES (À PROPOS, MOSAÏQUE & PARCOURS)
+   ========================================================================== */
+.about-section {
+  background: var(--bg-subtle);
+  border-top: 1px solid var(--card-border);
+  border-bottom: 1px solid var(--card-border);
+}
+
+.story-section {
+  background: var(--bg-color);
+  border-top: 1px solid var(--card-border);
+}
+
+.split-layout {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 4.5rem;
+  align-items: center;
+}
+
+.split-layout.reverse {
+  direction: rtl;
+}
+
+.split-layout.reverse > * {
+  direction: ltr;
+}
+
+.split-text h2 {
+  font-size: clamp(2rem, 3vw, 2.7rem);
+  letter-spacing: -0.02em;
+  margin-bottom: 1.5rem;
+  color: var(--text-main);
+  line-height: 1.2;
+}
+
+.split-text p {
+  font-size: 1.08rem;
+  line-height: 1.8;
+  color: #4a443e;
+  margin-bottom: 1.2rem;
+  text-align: justify;
+  text-justify: inter-word;
+  hyphens: auto;
+}
+
+.split-text strong {
+  color: var(--text-main);
+  font-weight: 600;
+}
+
+.split-image {
+  width: 100%;
+  height: 550px;
+  border-radius: var(--radius);
+  overflow: hidden;
+  box-shadow: 0 16px 35px rgba(70, 50, 40, 0.08);
+}
+
+.split-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.3s ease;
+}
+
+.split-image img:hover {
+  transform: scale(1.03);
+}
+
+/* Galerie en mosaïque */
+.section-mosaic {
+  padding: 2rem 1.5rem 5rem 1.5rem;
+  background-color: var(--bg-color);
+}
+
+.mosaic-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-auto-rows: 240px;
+  gap: 1.2rem;
+}
+
+.mosaic-item {
+  border-radius: var(--radius);
+  overflow: hidden;
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.04);
+}
+
+.mosaic-item.item-large {
+  grid-column: span 2;
+}
+
+.mosaic-item.item-tall {
+  grid-row: span 2;
+}
+
+.mosaic-item img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.3s ease;
+}
+
+.mosaic-item img:hover {
+  transform: scale(1.04);
+}
+/* Réduction de l'espacement entre Cheminement et Déroulement */
+#parcours {
+  padding-bottom: 2.5rem; /* Réduit le vide sous le cheminement */
+}
+
+#deroulement {
+  padding-top: 2.5rem;    /* Réduit le vide au-dessus du déroulement */
+}
+/* ==========================================================================
+   8. PROCESSUS EN 3 ÉTAPES
+   ========================================================================== */
+.process-section {
+  background: var(--bg-color);
+}
+
+.process-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 2rem;
+}
+
+.process-card {
+  background: var(--card-bg);
+  border: 1px solid var(--card-border);
+  border-radius: var(--radius);
+  padding: 2.5rem 2rem;
+  position: relative;
+}
+
+.step-number {
+  font-size: 2.2rem;
+  font-weight: 800;
+  color: var(--accent);
+  opacity: 0.25;
+  margin-bottom: 1rem;
+}
+
+.process-card h3 {
+  font-size: 1.3rem;
+  font-weight: 700;
+  margin-bottom: 0.6rem;
+  color: var(--text-main);
+}
+
+.process-card p {
+  font-size: 0.95rem;
+  color: var(--text-muted);
+  line-height: 1.6;
+}
+
+/* ==========================================================================
+   9. SECTION TARIFS & CARTES
+   ========================================================================== */
+.pricing-section {
+  background: var(--bg-color);
+}
+
+.pricing-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(310px, 1fr));
+  gap: 2rem;
+  align-items: stretch;
+}
+
+.pricing-card {
+  background: var(--card-bg);
+  border: 1px solid var(--card-border);
+  border-radius: var(--radius);
+  padding: 2.2rem;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.03);
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
+}
+
+.pricing-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.07);
+}
+
+.pricing-card.featured {
+  border: 2px solid var(--accent);
+  background: #ffffff;
+}
+
+.card-badge {
+  position: absolute;
+  top: -12px;
+  right: 20px;
+  background: var(--accent);
+  color: #ffffff;
+  font-size: 0.75rem;
+  font-weight: 600;
+  padding: 0.25rem 0.8rem;
+  border-radius: 12px;
+}
+
+/* Showcase visuel des cartes */
+.pricing-gallery-showcase {
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
+  margin-bottom: 1.5rem;
+}
+
+.gallery-lead-img {
+  width: 100%;
+  height: 200px;
+  object-fit: cover;
+  border-radius: 12px;
+  cursor: pointer;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+  transition: transform 0.25s ease, filter 0.25s ease;
+}
+
+.gallery-lead-img:hover {
+  transform: scale(1.02);
+  filter: brightness(0.95);
+}
+
+.gallery-thumbnails {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 0.5rem;
+}
+
+.gallery-thumbnails img {
+  width: 100%;
+  height: 70px;
+  object-fit: cover;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: transform 0.2s ease, opacity 0.2s ease;
+}
+
+.gallery-thumbnails img:hover {
+  transform: translateY(-2px);
+  opacity: 0.85;
+}
+
+.card-header h3 {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: var(--text-main);
+  margin-bottom: 0.5rem;
+}
+
+.card-header .subtitle {
+  color: var(--text-muted);
+  font-size: 0.95rem;
+  min-height: 48px;
+}
+
+.btn-detail-link {
+  background: none;
+  border: none;
+  color: var(--accent);
+  font-size: 0.88rem;
+  font-weight: 600;
+  text-align: left;
+  padding: 0;
+  margin-top: 0.8rem;
+  cursor: pointer;
+  display: inline-block;
+  transition: opacity 0.2s ease;
+}
+
+.btn-detail-link:hover {
+  opacity: 0.75;
+  text-decoration: underline;
+}
+
+.price {
+  font-size: 2.5rem;
+  font-weight: 800;
+  letter-spacing: -0.03em;
+  color: var(--text-main);
+  margin: 1.2rem 0 0.2rem 0;
+}
+
+.price span {
+  font-size: 1.1rem;
+  font-weight: 400;
+  color: var(--text-muted);
+}
+
+.extra-rate {
+  font-size: 0.85rem;
+  color: var(--text-muted);
+  margin-bottom: 1.4rem;
+}
+
+.features {
+  list-style: none;
+  margin-bottom: 2rem;
+  flex-grow: 1;
+}
+
+.features li {
+  font-size: 0.95rem;
+  color: #554f49;
+  margin-bottom: 0.7rem;
+  position: relative;
+  padding-left: 1.4rem;
+}
+
+.features li::before {
+  content: "✓";
+  position: absolute;
+  left: 0;
+  color: var(--accent);
+  font-weight: bold;
+}
+
+.btn-card {
+  display: block;
+  text-align: center;
+  padding: 0.85rem;
+  border-radius: 12px;
+  font-size: 0.95rem;
+  font-weight: 600;
+  text-decoration: none;
+  background: var(--bg-subtle);
+  color: var(--text-main);
+  border: 1px solid var(--card-border);
+  transition: all 0.2s ease;
+}
+
+.btn-card:hover {
+  background: #e5decb;
+}
+
+.btn-card.primary {
+  background: var(--accent);
+  color: #ffffff;
+  border-color: var(--accent);
+}
+
+.btn-card.primary:hover {
+  background: var(--accent-hover);
+}
+
+/* ==========================================================================
+   10. MODALE DÉTAILS DE L'OFFRE (POPUP)
+   ========================================================================== */
+.offer-modal {
+  position: fixed;
+  inset: 0;
+  z-index: 1050;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1.5rem;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.3s ease;
+}
+
+.offer-modal.active {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.offer-modal-overlay {
+  position: absolute;
+  inset: 0;
+  background: rgba(35, 31, 32, 0.6);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+}
+
+.offer-modal-box {
+  position: relative;
+  background: var(--card-bg);
+  border: 1px solid var(--card-border);
+  border-radius: var(--radius);
+  max-width: 680px;
+  width: 100%;
+  max-height: 88vh;
+  overflow-y: auto;
+  padding: 2.5rem 2.2rem;
+  box-shadow: 0 25px 60px rgba(0, 0, 0, 0.2);
+  z-index: 2;
+  transform: translateY(20px);
+  transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.offer-modal.active .offer-modal-box {
+  transform: translateY(0);
+}
+
+.offer-modal-close {
+  position: absolute;
+  top: 1.2rem;
+  right: 1.5rem;
+  background: none;
+  border: none;
+  font-size: 2rem;
+  line-height: 1;
+  color: var(--text-muted);
+  cursor: pointer;
+  transition: color 0.2s ease;
+}
+
+.offer-modal-close:hover {
+  color: var(--text-main);
+}
+
+.offer-modal-header {
+  margin-bottom: 1.5rem;
+}
+
+.offer-modal-header h2 {
+  font-size: 2rem;
+  margin-top: 0.3rem;
+  color: var(--text-main);
+}
+
+.offer-modal-price {
+  font-size: 1.6rem;
+  font-weight: 800;
+  color: var(--accent);
+  margin-top: 0.3rem;
+}
+
+.offer-modal-gallery-wrap {
+  width: 100%;
+  overflow-x: auto;
+  padding-bottom: 0.8rem;
+  margin: 1.5rem 0 2rem 0;
+  scrollbar-width: thin;
+  scrollbar-color: var(--accent) transparent;
+}
+
+.offer-modal-gallery {
+  display: flex;
+  gap: 0.8rem;
+  width: max-content;
+}
+
+.offer-modal-gallery img {
+  height: 160px;
+  width: 220px;
+  object-fit: cover;
+  border-radius: 12px;
+  border: 1px solid var(--card-border);
+  cursor: pointer;
+  transition: transform 0.2s ease;
+}
+
+.offer-modal-gallery img:hover {
+  transform: scale(1.03);
+}
+
+.offer-detail-block {
+  margin-bottom: 1.8rem;
+}
+
+.offer-detail-block h3 {
+  font-size: 1.1rem;
+  font-weight: 700;
+  margin-bottom: 0.4rem;
+  color: var(--text-main);
+}
+
+.offer-detail-block p {
+  color: var(--text-muted);
+  font-size: 0.98rem;
+  line-height: 1.6;
+}
+
+.offer-modal-footer {
+  margin-top: 2rem;
+  text-align: center;
+  border-top: 1px solid var(--card-border);
+  padding-top: 1.5rem;
+}
+
+/* ==========================================================================
+   11. LIGHTBOX (CADRE SIGNÉ SIMPLIPHOTO & ARRIÈRE-PLAN VISIBLE)
+   ========================================================================== */
+.lightbox {
+  display: none; /* Ne bloque aucun clic sur la page au repos */
+  position: fixed;
+  inset: 0;
+  z-index: 999999;
+  align-items: center;
+  justify-content: center;
+  padding: 1.5rem;
+}
+
+.lightbox.active {
+  display: flex !important;
+}
+
+/* Arrière-plan semi-transparent et flouté (le site reste visible) */
+.lightbox-overlay {
+  position: absolute;
+  inset: 0;
+  background: rgba(35, 31, 32, 0.45);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  cursor: pointer;
+}
+
+/* Cadre principal : forcé en colonne verticale */
+.lightbox-frame {
+  position: relative;
+  z-index: 2;
+  background: var(--bg-subtle);
+  border: 1px solid var(--card-border);
+  border-radius: var(--radius);
+  padding: 1rem 1.2rem 1.2rem 1.2rem;
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.25);
+  display: flex !important;
+  flex-direction: column !important; /* L'en-tête reste toujours au-dessus */
+  align-items: stretch;
+  width: auto;
+  max-width: min(85vw, 680px); /* Largeur maîtrisée */
+  max-height: 88vh;
+  animation: zoomFrame 0.25s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+@keyframes zoomFrame {
+  from {
+    transform: scale(0.94) translateY(8px);
+    opacity: 0;
+  }
+  to {
+    transform: scale(1) translateY(0);
+    opacity: 1;
+  }
+}
+
+/* En-tête : Logo calé à gauche + croix à droite */
+.lightbox-header {
+  display: flex !important;
+  flex-direction: row !important;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  margin-bottom: 0.8rem;
+  padding-bottom: 0.6rem;
+  border-bottom: 1px solid var(--card-border);
+}
+
+.lightbox-brand {
+  display: flex;
+  align-items: center;
+  gap: 0.65rem;
+}
+
+.lightbox-brand svg {
+  color: var(--text-main);
+  flex-shrink: 0;
+}
+
+.lightbox-brand .brand-text {
+  display: flex;
+  flex-direction: column;
+  line-height: 1.05;
+}
+
+.lightbox-brand .brand-title {
+  font-size: 0.95rem;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  color: var(--text-main);
+}
+
+.lightbox-brand .brand-locality {
+  font-size: 0.65rem;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--accent); /* Terracotta */
+  margin-top: 0.15rem;
+}
+
+.lightbox-close-btn {
+  background: none;
+  border: none;
+  font-size: 1.8rem;
+  line-height: 1;
+  color: var(--text-muted);
+  cursor: pointer;
+  padding: 0 0.3rem;
+  transition: color 0.2s ease, transform 0.2s ease;
+}
+
+.lightbox-close-btn:hover {
+  color: var(--accent);
+  transform: scale(1.15);
+}
+
+/* Zone d'affichage photo centrée sous l'en-tête */
+.lightbox-photo-wrap {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 12px;
+  overflow: hidden;
+  background: #181514;
+}
+
+.lightbox-photo-wrap img {
+  display: block;
+  max-width: 100%;
+  max-height: 55vh; /* Hauteur modérée pour un rendu équilibré */
+  object-fit: contain;
+}
+
+@media (max-width: 650px) {
+  .lightbox-frame {
+    padding: 0.8rem;
+    max-width: 92vw;
+  }
+  .lightbox-photo-wrap img {
+    max-height: 48vh;
+  }
+}
+/* ==========================================================================
+   12. AVIS & LIVRE D'OR
+   ========================================================================== */
+.reviews-section {
+  background: var(--bg-subtle);
+  border-top: 1px solid var(--card-border);
+  border-bottom: 1px solid var(--card-border);
+}
+
+.reviews-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 1.8rem;
+  margin-bottom: 4rem;
+}
+
+.review-card {
+  background: var(--card-bg);
+  border: 1px solid var(--card-border);
+  border-radius: var(--radius);
+  padding: 2.2rem;
+  display: flex;
+  flex-direction: column;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.02);
+}
+
+.review-stars {
+  color: var(--accent);
+  letter-spacing: 2px;
+  font-size: 1.1rem;
+  margin-bottom: 1rem;
+}
+
+.review-text {
+  font-size: 0.98rem;
+  color: #4a443e;
+  line-height: 1.65;
+  font-style: italic;
+  flex-grow: 1;
+  margin-bottom: 1.5rem;
+}
+
+.review-author strong {
+  display: block;
+  font-size: 0.95rem;
+  color: var(--text-main);
+}
+
+.review-author span {
+  font-size: 0.82rem;
+  color: var(--text-muted);
+}
+
+.review-form-wrapper {
+  max-width: 680px;
+  margin: 0 auto;
+}
+
+.review-form-card {
+  background: var(--card-bg);
+  border: 1px solid var(--card-border);
+  border-radius: var(--radius);
+  padding: 2.5rem 2.2rem;
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.03);
+}
+
+.review-form-card h3 {
+  font-size: 1.4rem;
+  color: var(--text-main);
+  margin-bottom: 0.4rem;
+}
+
+.form-subtitle {
+  font-size: 0.92rem;
+  color: var(--text-muted);
+  margin-bottom: 1.8rem;
+}
+
+.form-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1.2rem;
+}
+
+.form-group {
+  margin-bottom: 1.3rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+}
+
+.form-group label {
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: var(--text-main);
+}
+
+.form-group input,
+.form-group select,
+.form-group textarea {
+  width: 100%;
+  padding: 0.8rem 1rem;
+  background-color: var(--bg-color);
+  border: 1px solid var(--card-border);
+  border-radius: 10px;
+  font-family: inherit;
+  font-size: 0.95rem;
+  color: var(--text-main);
+  outline: none;
+  transition: border-color 0.2s ease;
+}
+
+.form-group input:focus,
+.form-group select:focus,
+.form-group textarea:focus {
+  border-color: var(--accent);
+}
+
+.btn-submit-review {
+  border: none;
+  cursor: pointer;
+  width: 100%;
+  text-align: center;
+  margin-top: 0.5rem;
+}
+
+/* ==========================================================================
+   13. CONTACT & FOOTER
+   ========================================================================== */
+.contact-section {
+  background: var(--bg-subtle);
+  border-top: 1px solid var(--card-border);
+}
+
+.contact-desc {
+  font-size: 1.2rem;
+  color: var(--text-muted);
+  margin-bottom: 2.2rem;
+}
+
+.contact-btn {
+  display: inline-block;
+  background: var(--accent);
+  color: #ffffff;
+  padding: 1rem 2.2rem;
+  border-radius: 30px;
+  font-size: 1.05rem;
+  font-weight: 600;
+  text-decoration: none;
+  box-shadow: 0 8px 20px rgba(200, 90, 50, 0.25);
+  transition: transform 0.2s ease, background 0.2s ease;
+}
+
+.contact-btn:hover {
+  transform: scale(1.02);
+  background: var(--accent-hover);
+}
+
+.contact-details {
+  margin-top: 1.5rem;
+  color: var(--text-muted);
+  font-size: 0.9rem;
+}
+
+footer {
+  text-align: center;
+  padding: 3rem 1.5rem;
+  font-size: 0.85rem;
+  color: var(--text-muted);
+  background: var(--bg-color);
+  border-top: 1px solid var(--card-border);
+}
+
+/* ==========================================================================
+   14. RESPONSIVE MOBILE
+   ========================================================================== */
+@media (max-width: 850px) {
+  .split-layout {
+    grid-template-columns: 1fr;
+    gap: 2.5rem;
+  }
+  .split-layout.reverse {
+    direction: ltr;
+  }
+  .split-image {
+    height: 320px;
+  }
+  .mosaic-grid {
+    grid-template-columns: 1fr;
+    grid-auto-rows: 220px;
+  }
+  .mosaic-item.item-large,
+  .mosaic-item.item-tall {
+    grid-column: span 1;
+    grid-row: span 1;
+  }
+}
+
+@media (max-width: 600px) {
+  .form-row {
+    grid-template-columns: 1fr;
+  }
+}
+/* ==========================================================================
+   HARMONISATION DES ESPACEMENTS ENTRE SECTIONS
+   ========================================================================== */
+#parcours,
+#deroulement,
+#tarifs,
+#avis {
+  padding-bottom: 2.5rem;
+}
+
+#deroulement,
+#tarifs,
+#avis,
+#contact {
+  padding-top: 2.5rem;
+}
+/* ==========================================================================
+   RÉDUCTION STRICTE DES ESPACEMENTS ENTRE SECTIONS
+   ========================================================================== */
+#parcours,
+#deroulement,
+#tarifs,
+.process-section,
+.story-section,
+.pricing-section {
+  padding-top: 1.5rem !important;
+  padding-bottom: 1.5rem !important;
+  margin-top: 0 !important;
+  margin-bottom: 0 !important;
+}
+
+/* Réduit l'espace sous le titre "Déroulement / Simple du début à la fin" */
+.section-header {
+  margin-bottom: 2rem !important;
+}
+
+/* Réduit l'espace sous les blocs textes du cheminement */
+.split-layout {
+  margin-bottom: 0 !important;
+}
