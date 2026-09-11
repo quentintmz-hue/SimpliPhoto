@@ -1136,12 +1136,12 @@ footer {
   border-top: 1px solid var(--card-border);
 }
 
-/* ==========================================================================
-   14. RESPONSIVE MOBILE AVEC HEADER ÉLARGI & CARTES EN DÉFILEMENT (< 850px)
+/* /* ==========================================================================
+   14. RESPONSIVE MOBILE FINALISÉ (< 850px)
    ========================================================================== */
 @media (max-width: 850px) {
 
-  /* 1. Header élargi et plus imposant */
+  /* 1. Header large et présent */
   .navbar {
     height: 68px !important;
   }
@@ -1151,7 +1151,7 @@ footer {
   }
 
   .nav-links a:not(.btn-nav) {
-    display: none !important; /* Masque les liens textes pour garder l'en-tête net */
+    display: none !important;
   }
 
   .brand-logo {
@@ -1177,11 +1177,12 @@ footer {
     font-weight: 600 !important;
   }
 
-  /* 2. Hero ajusté à la nouvelle hauteur de navbar */
+  /* 2. Hero compact : collage direct avec le carrousel sans trou blanc */
   .hero-section {
     min-height: auto !important;
     height: auto !important;
-    padding: 85px 1rem 1.5rem 1rem !important;
+    padding: 85px 1rem 1rem 1rem !important;
+    margin-bottom: 0 !important;
   }
 
   .hero-container {
@@ -1209,7 +1210,16 @@ footer {
     border-radius: 14px !important;
   }
 
-  /* 3. Chiffres clés : alignés sur 1 ligne horizontale */
+  .photo-ticker-section {
+    margin-top: 0 !important;
+    padding: 1.2rem 0 !important;
+  }
+
+  .photo-ticker-track img {
+    height: 130px !important;
+  }
+
+  /* 3. Chiffres clés : 3 blocs sur 1 seule ligne horizontale */
   .stats-bar {
     padding: 1.2rem 0.8rem !important;
   }
@@ -1237,26 +1247,34 @@ footer {
     margin-top: 0.2rem !important;
   }
 
-  /* 4. Sections de texte resserrées */
+  /* 4. Organisation Texte puis Photo (Concept & Cheminement) */
   .section {
     padding: 2.5rem 1rem !important;
   }
 
-  .split-layout {
-    grid-template-columns: 1fr !important;
-    gap: 1.5rem !important;
+  .split-layout,
+  .split-layout.reverse {
+    display: flex !important;
+    flex-direction: column !important;
+    direction: ltr !important;
+    gap: 1.2rem !important;
   }
 
-  .split-layout.reverse {
-    direction: ltr !important;
+  .split-text {
+    order: 1 !important;
+    width: 100% !important;
   }
 
   .split-image {
+    order: 2 !important;
+    width: 100% !important;
     height: 240px !important;
+    border-radius: 14px !important;
   }
 
   .split-text h2 {
     font-size: 1.5rem !important;
+    margin-bottom: 0.6rem !important;
   }
 
   .split-text p {
@@ -1265,7 +1283,26 @@ footer {
     margin-bottom: 0.8rem !important;
   }
 
-  /* 5. Processus : défilement horizontal fluide au doigt */
+  /* Mosaïque photo adaptée */
+  .section-mosaic {
+    padding: 1rem 1rem 2.5rem 1rem !important;
+  }
+
+  .mosaic-grid {
+    grid-template-columns: 1fr 1fr !important;
+    grid-auto-rows: 150px !important;
+    gap: 0.8rem !important;
+  }
+
+  .mosaic-item.item-large {
+    grid-column: span 2 !important;
+  }
+
+  .mosaic-item.item-tall {
+    grid-row: span 1 !important;
+  }
+
+  /* 5. Processus : défilement horizontal fluide */
   .process-grid {
     display: flex !important;
     overflow-x: auto !important;
