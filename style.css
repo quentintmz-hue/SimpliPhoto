@@ -1206,3 +1206,97 @@ footer {
 .split-layout {
   margin-bottom: 0 !important;
 }
+/* ==========================================================================
+   OPTIMISATIONS RESPONSIVE SMARTPHONE (< 768px)
+   ========================================================================== */
+
+/* 1. Verrouiller le débordement horizontal */
+html, body {
+  max-width: 100% !important;
+  overflow-x: hidden !important;
+}
+
+*, *::before, *::after {
+  box-sizing: border-box;
+}
+
+@media (max-width: 768px) {
+
+  /* 2. Conteneurs et espacements adaptés aux petits écrans */
+  .container {
+    width: 100% !important;
+    padding-left: 1.25rem !important;
+    padding-right: 1.25rem !important;
+  }
+
+  section {
+    padding: 3.5rem 0 !important;
+  }
+
+  /* 3. Titres et typographies */
+  h1 {
+    font-size: 2.1rem !important;
+    line-height: 1.2 !important;
+  }
+
+  h2 {
+    font-size: 1.75rem !important;
+    line-height: 1.25 !important;
+  }
+
+  p {
+    font-size: 1rem !important;
+  }
+
+  /* 4. Hero & boutons */
+  .hero-section {
+    padding-top: 5rem !important;
+    min-height: auto !important;
+  }
+
+  .hero-actions, 
+  .cta-group {
+    display: flex !important;
+    flex-direction: column !important;
+    width: 100% !important;
+    gap: 0.75rem !important;
+  }
+
+  .btn, .btn-primary, .btn-secondary {
+    width: 100% !important;
+    text-align: center !important;
+    justify-content: center !important;
+  }
+
+  /* 5. Grille des tarifs : empilement vertical propre */
+  .pricing-grid {
+    display: flex !important;
+    flex-direction: column !important;
+    gap: 1.5rem !important;
+    width: 100% !important;
+  }
+
+  .pricing-card {
+    width: 100% !important;
+    margin: 0 !important;
+    transform: none !important; /* Retire les effets de zoom desktop */
+  }
+
+  /* 6. Processus / Déroulement */
+  .steps-grid, 
+  .features-grid,
+  .stats-grid {
+    grid-template-columns: 1fr !important;
+    gap: 1.5rem !important;
+  }
+
+  /* 7. Bandeau défilant d'images (Ticker) si présent */
+  .ticker-track {
+    gap: 0.75rem !important;
+  }
+
+  .ticker-track img {
+    height: 140px !important;
+    width: auto !important;
+  }
+}
