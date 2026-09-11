@@ -266,7 +266,7 @@ if (reviewForm) {
   });
 }
 
-/* ==========================================================================
+/*/* ==========================================================================
    7. INITIALISATION GLOBALE & ANIMATION GSAP
    ========================================================================== */
 document.addEventListener("DOMContentLoaded", () => {
@@ -274,31 +274,36 @@ document.addEventListener("DOMContentLoaded", () => {
   initialiserTickerPhotos();
   chargerAvisEnregistres();
 
-  // Animation GSAP au scroll
+  // Animation GSAP au scroll (uniquement active sur ordinateur)
   if (typeof gsap !== "undefined" && typeof ScrollTrigger !== "undefined") {
     gsap.registerPlugin(ScrollTrigger);
 
-   gsap.to(".image-wrapper", {
-      width: "100vw",
-      height: "100vh",
-      borderRadius: "0px",
-      ease: "none",
-      scrollTrigger: {
-        trigger: ".hero-section",
-        start: "top top",
-        end: "+=100%",
-        scrub: true,
-        pin: true
-      }
-    });
+    ScrollTrigger.matchMedia({
+      // Uniquement sur les écrans de plus de 850px (Desktop / PC)
+      "(min-width: 851px)": function () {
+        gsap.to(".image-wrapper", {
+          width: "100vw",
+          height: "100vh",
+          borderRadius: "0px",
+          ease: "none",
+          scrollTrigger: {
+            trigger: ".hero-section",
+            start: "top top",
+            end: "+=100%",
+            scrub: true,
+            pin: true
+          }
+        });
 
-    gsap.to(".image-wrapper", {
-      scale: 1.05,
-      scrollTrigger: {
-        trigger: ".hero-section",
-        start: "top top",
-        end: "bottom top",
-        scrub: true
+        gsap.to(".image-wrapper", {
+          scale: 1.05,
+          scrollTrigger: {
+            trigger: ".hero-section",
+            start: "top top",
+            end: "bottom top",
+            scrub: true
+          }
+        });
       }
     });
   }
