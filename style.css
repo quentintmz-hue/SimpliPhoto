@@ -261,7 +261,7 @@ body {
   object-fit: cover;
 }
 
-/* ==========================================================================
+/* /* ==========================================================================
    5. BANDEAU DE PHOTOS DÉFILANTES (CARROUSEL CONTINU)
    ========================================================================== */
 .photo-ticker-section {
@@ -271,17 +271,21 @@ body {
   padding: 3.5rem 0;
   border-top: 1px solid var(--card-border);
   border-bottom: 1px solid var(--card-border);
+  touch-action: pan-y; /* Permet le défilement vertical de la page sans accroc */
 }
 
 .photo-ticker-track {
   display: flex;
   gap: 1.2rem;
   width: max-content;
-  animation: defilementPhotos 38s linear infinite;
+  will-change: transform;
+  cursor: grab;
+  user-select: none;
+  -webkit-user-select: none;
 }
 
-.photo-ticker-track:hover {
-  animation-play-state: paused;
+.photo-ticker-track:active {
+  cursor: grabbing;
 }
 
 .photo-ticker-track img {
@@ -291,16 +295,12 @@ body {
   border-radius: 14px;
   box-shadow: 0 6px 18px rgba(0, 0, 0, 0.06);
   flex-shrink: 0;
+  pointer-events: auto;
   transition: transform 0.25s ease;
 }
 
 .photo-ticker-track img:hover {
   transform: scale(1.03);
-}
-
-@keyframes defilementPhotos {
-  0% { transform: translateX(0); }
-  100% { transform: translateX(-50%); }
 }
 
 /* ==========================================================================
@@ -1135,8 +1135,7 @@ footer {
   background: var(--bg-color);
   border-top: 1px solid var(--card-border);
 }
-
-/* ==========================================================================
+/*/* ==========================================================================
    14. RESPONSIVE MOBILE FINALISÉ (< 850px)
    ========================================================================== */
 @media (max-width: 850px) {
@@ -1283,7 +1282,7 @@ footer {
     margin-bottom: 0.8rem !important;
   }
 
-  /* SUPPRESSION DU PAQUET DE PHOTOS SUR MOBILE (Reste intact sur PC) */
+  /* Suppression de la mosaïque sur mobile (reste intacte sur desktop) */
   .section-mosaic {
     display: none !important;
   }
