@@ -261,78 +261,92 @@
          ----------------------------------------------------------------------- -->
     <div class="site-block block-social-proof">
 
-      <!-- 5.1 Témoignages & Ajout d'avis -->
+<!-- 5.1 Témoignages & Ajout d'avis -->
       <section id="avis" class="section reviews-section">
         <div class="container">
           <div class="section-header">
-            <span class="section-tag">Retours d'expérience</span>
+            <span class="section-tag">Retour d'expérience</span>
             <h2>Ce qu'ils en disent.</h2>
-            <p>Des souvenirs partagés et des retours spontanés après livraison.</p>
+            <p>Retours de fêtes et soirées capturées à Strasbourg.</p>
           </div>
 
+          <!-- Liste des avis validés -->
           <div class="reviews-grid" id="reviews-list">
+            
             <article class="review-card">
               <div class="review-stars">★★★★★</div>
-              <p class="review-text">« Une présence très discrète pour les 30 ans de mon conjoint. Personne ne s'est senti épié et le résultat est bluffant : des rires pris sur le vif et une galerie reçue dès le lendemain midi ! »</p>
+              <p class="review-text">« Au départ on hésitait pour une simple soirée d'anniversaire en appart, mais c'est tellement mieux que d'avoir chacun 3 vidéos floues sur nos portables. Super discret, Quentin a capté des moments de rires qu'on n'avait même pas remarqués. »</p>
               <div class="review-author">
-                <strong>Camille & Thomas</strong>
-                <span>Anniversaire — Strasbourg Neudorf</span>
+                <strong>Léa & Antoine</strong>
+                <span>Anniversaire 25 ans — Strasbourg Krutenau</span>
               </div>
             </article>
 
             <article class="review-card">
               <div class="review-stars">★★★★★</div>
-              <p class="review-text">« Discret, ponctuel et ultra efficace. Avoir toutes les photos en haute résolution sans payer de supplément par cliché change tout par rapport aux prestations classiques. »</p>
+              <p class="review-text">« Vraiment cool de ne pas avoir à courir partout pour prendre des photos pendant le pot de départ. Tout le monde était à l'aise, et recevoir le lien le surlendemain matin avec toutes les photos téléchargeables sans limite, c'est top. »</p>
               <div class="review-author">
-                <strong>Julien M.</strong>
-                <span>Fête de famille — Robertsau</span>
+                <strong>Mathieu</strong>
+                <span>Pot associatif — Neudorf</span>
               </div>
             </article>
 
             <article class="review-card">
               <div class="review-stars">★★★★★</div>
-              <p class="review-text">« Les photos de soirée avec la lumière naturelle et les jeux de lumières de la salle sont magnifiques. Une prestation rassurante et professionnelle du début à la fin. »</p>
+              <p class="review-text">« Ambiance tamisée très réussie. Les lumières de la soirée sont bien rendues sans le coup de flash agressif qu'on redoutait. Tarif hyper réglo pour 4h de présence. »</p>
               <div class="review-author">
-                <strong>Sarah L.</strong>
-                <span>Cocktail privé — Centre-ville</span>
+                <strong>Sonia</strong>
+                <span>Fête de famille — Schiltigheim</span>
               </div>
             </article>
+
           </div>
 
-          <!-- Formulaire interactif -->
+          <!-- Formulaire de soumission d'avis -->
           <div class="review-form-wrapper">
             <div class="review-form-card">
-              <h3>Laisser un mot sur votre événement</h3>
-              <p class="form-subtitle">Vous avez partagé un moment devant mon objectif ? Votre retour compte beaucoup.</p>
+              <h3>Laisser un mot sur votre soirée</h3>
+              <p class="form-subtitle">Vous étiez de la fête ? Partagez votre ressenti sur la prestation ou les photos.</p>
               
-              <form id="review-form">
+              <!-- Remplace l'action par ton lien d'envoi (ex. Formspree ou ton webhook) -->
+              <form id="review-form" action="https://formspree.io/f/ton_identifiant_ici" method="POST">
+                
                 <div class="form-row">
                   <div class="form-group">
-                    <label for="author-name">Votre nom ou prénom</label>
-                    <input type="text" id="author-name" required placeholder="Ex. Sophie & Marc" />
+                    <label for="author-name">Votre nom ou prénom *</label>
+                    <input type="text" id="author-name" name="nom" required placeholder="Ex. Thomas B." />
                   </div>
                   <div class="form-group">
-                    <label for="event-type">Type d'événement & lieu</label>
-                    <input type="text" id="event-type" required placeholder="Ex. Anniversaire — Strasbourg" />
+                    <label for="event-type">Événement & lieu *</label>
+                    <input type="text" id="event-type" name="evenement_lieu" required placeholder="Ex. Crémaillère — Strasbourg Gare" />
                   </div>
                 </div>
 
-                <div class="form-group">
-                  <label for="review-rating">Note</label>
-                  <select id="review-rating">
-                    <option value="5">★★★★★ (Parfait)</option>
-                    <option value="4">★★★★☆ (Très bien)</option>
-                    <option value="3">★★★☆☆ (Bien)</option>
-                  </select>
-                </div>
+              <div class="form-group">
+  <label for="review-rating">Votre note *</label>
+  <select id="review-rating" name="note" required>
+    <option value="5" selected>★★★★★ (5/5 — Excellent)</option>
+    <option value="4">★★★★☆ (4/5 — Très bien)</option>
+    <option value="3">★★★☆☆ (3/5 — Moyen / Correct)</option>
+    <option value="2">★★☆☆☆ (2/5 — Décevant)</option>
+    <option value="1">★☆☆☆☆ (1/5 — Insatisfaisant)</option>
+  </select>
+</div>
 
                 <div class="form-group">
-                  <label for="review-comment">Votre message</label>
-                  <textarea id="review-comment" rows="4" required placeholder="Racontez votre expérience, l'ambiance, la réception des photos..."></textarea>
+                  <label for="review-comment">Votre message *</label>
+                  <textarea id="review-comment" name="commentaire" rows="4" required placeholder="Comment s'est passée la soirée ? Qu'avez-vous pensé de la discrétion et du résultat des photos ?"></textarea>
                 </div>
 
-                <button type="submit" class="contact-btn btn-submit-review">Publier mon avis</button>
+                <button type="submit" class="contact-btn btn-submit-review" id="btn-submit-review">Envoyer mon témoignage</button>
               </form>
+
+              <!-- Message de validation affiché à l'envoi -->
+              <div id="review-status-msg" style="display:none; text-align:center; padding:1.5rem 0;">
+                <p style="color:var(--accent); font-weight:700; font-size:1.1rem; margin-bottom:0.4rem;">Merci pour votre message !</p>
+                <p style="color:var(--text-muted); font-size:0.95rem;">Votre avis a été transmis et sera publié sur le site après relecture.</p>
+              </div>
+
             </div>
           </div>
 
@@ -342,18 +356,14 @@
      <!-- 5.2 Contact direct & Prise de date -->
       <section id="contact" class="section contact-section">
         <div class="container narrow text-center">
-          <span class="section-tag">Disponibilités & Devis</span>
+          <span class="section-tag">Contact</span>
           <h2>Bloquons votre date.</h2>
-          <p class="contact-desc">
-            Racontez-moi les grandes lignes de votre soirée. Je vérifie mon planning et je vous réponds sous quelques heures avec une confirmation.
-          </p>
-
           <div class="contact-box">
             <a href="reservation.html" class="contact-btn">
-              Faire une demande de date
+              Faire une demande
             </a>
             <div class="contact-details">
-              <p>Formulaire guidé en 3 étapes • Disponibilités en semaine dès 18h et tout le week-end</p>
+              <p>Disponibilités en semaine dès 18h et tout le week-end</p>
             </div>
           </div>
         </div>
