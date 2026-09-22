@@ -89,13 +89,13 @@ function initialiserGaleriesTarifs() {
     container.appendChild(thumbWrap);
   });
 }
-
 /* ==========================================================================
-   3. BANDEAU DE PHOTOS DÉFILANTES (HERO TICKER)
+   3. BANDEAU DE PHOTOS DÉFILANTES (HERO TICKER INTERACTIF)
    ========================================================================== */
 function initialiserTickerPhotos() {
   const track = document.getElementById("photo-ticker-track");
-  if (!track) return;
+  const parent = track ? track.parentElement : null;
+  if (!track || !parent) return;
 
   const imagesSources = [
     "Images/tarif-eco/1.jpg",
@@ -106,8 +106,8 @@ function initialiserTickerPhotos() {
     "Images/tarif-premium/2.jpg"
   ];
 
-  // Doublage de la liste pour défilement infini sans saut
-  const totalImages = [...imagesSources, ...imagesSources];
+  // Triplement de la liste pour garantir une boucle infinie continue
+  const totalImages = [...imagesSources, ...imagesSources, ...imagesSources];
 
   track.innerHTML = "";
   totalImages.forEach((src) => {
@@ -115,11 +115,101 @@ function initialiserTickerPhotos() {
     img.src = src;
     img.className = "zoomable";
     img.alt = "Photo événementielle";
+    img.draggable = false;
     img.onerror = () => {
       img.src = "https://images.unsplash.com/photo-1511578314322-379afb476865?auto=format&fit=crop&w=400&q=80";
     };
     track.appendChild(img);
   });
+
+  let position = 0;
+  const baseSpeed = 1.0;
+  let extraVelocity = 0;
+  let isInteracting = false;
+  let hasDragged = false;
+  let lastX = 0;
+  let startX = 0;
+  let padTimeout = null;
+
+  function animer() {
+    if (!isInteracting) {
+      position -= (baseSpeed + extraVelocity);
+    } else {
+      position -= extraVelocity;
+    }
+
+    // Amorti d'inertie
+    extraVelocity *= 0.94;
+    if (Math.abs(extraVelocity) < 0.05) extraVelocity = 0;
+
+    // Réinitialisation de la boucle (1/3 de la largeur)
+    const segmentWidth = track.scrollWidth / 3;
+    if (segmentWidth > 0) {
+      if (position <= -segmentWidth) {
+        position += segmentWidth;
+      } else if (position > 0) {
+        position -= segmentWidth;
+      }
+    }
+
+    track.style.transform = `translate3d(${position}px, 0, 0)`;
+    requestAnimationFrame(animer);
+  }
+
+  requestAnimationFrame(animer);
+
+  // --- Interaction tactile & glissement à la souris ---
+  track.addEventListener("pointerdown", (e) => {
+    isInteracting = true;
+    hasDragged = false;
+    startX = e.clientX;
+    lastX = e.clientX;
+    extraVelocity = 0;
+  });
+
+  window.addEventListener("pointermove", (e) => {
+    if (!isInteracting) return;
+    const delta = e.clientX - lastX;
+    lastX = e.clientX;
+
+    if (Math.abs(e.clientX - startX) > 6) {
+      hasDragged = true; // Empêche l'ouverture accidentelle de la lightbox si on glisse
+    }
+
+    position += delta;
+    extraVelocity = -delta * 0.45;
+  });
+
+  const stopInteraction = () => {
+    if (isInteracting) isInteracting = false;
+  };
+
+  window.addEventListener("pointerup", stopInteraction);
+  window.addEventListener("pointercancel", stopInteraction);
+
+  // Évite d'ouvrir la photo en plein écran quand on effectue un simple swipe
+  track.addEventListener("click", (e) => {
+    if (hasDragged) {
+      e.stopPropagation();
+      e.preventDefault();
+    }
+  }, true);
+
+  // --- Interaction Trackpad (Molette / Pad horizontal) ---
+  parent.addEventListener("wheel", (e) => {
+    const delta = Math.abs(e.deltaX) > Math.abs(e.deltaY) ? e.deltaX : (e.shiftKey ? e.deltaY : 0);
+
+    if (delta !== 0) {
+      position -= delta;
+      extraVelocity = delta * 0.18;
+      isInteracting = true;
+
+      clearTimeout(padTimeout);
+      padTimeout = setTimeout(() => {
+        isInteracting = false;
+      }, 140);
+    }
+  }, { passive: true });
 }
 
 /* ==========================================================================
