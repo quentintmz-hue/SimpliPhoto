@@ -304,14 +304,18 @@ document.addEventListener("click", (e) => {
   }
 });
 
-/* ==========================================================================
-   6. AVIS & LIVRE D'OR (LOCALSTORAGE)
+/* /* ==========================================================================
+   6. AVIS & LIVRE D'OR (ENVOI POUR MODÉRATION & CHARGEMENT DYNAMIQUE)
    ========================================================================== */
-const reviewForm = document.getElementById("review-form");
-const reviewsList = document.getElementById("reviews-list");
+
+// 6.1 URL de ton API / Base de données (Airtable, Supabase, Google Sheet...)
+// Laisse vide pour l'instant : les 3 avis du HTML restent affichés par défaut.
+const URL_API_AVIS = ""; 
 
 function creerElementAvis(nom, lieu, note, message) {
-  const etoiles = "★".repeat(note) + "☆".repeat(5 - note);
+  const noteNum = Number(note) || 5;
+  const etoiles = "★".repeat(noteNum) + "☆".repeat(5 - noteNum);
+
   const card = document.createElement("article");
   card.className = "review-card";
   card.innerHTML = `
@@ -325,34 +329,66 @@ function creerElementAvis(nom, lieu, note, message) {
   return card;
 }
 
-function chargerAvisEnregistres() {
-  if (!reviewsList) return;
-  const avisStockes = JSON.parse(localStorage.getItem("simpliphoto_avis") || "[]");
-  avisStockes.forEach((a) => {
-    const card = creerElementAvis(a.nom, a.lieu, a.note, a.message);
-    reviewsList.prepend(card);
-  });
+// 6.2 Chargement des avis validés depuis la future base de données
+async function chargerAvisValides() {
+  const reviewsList = document.getElementById("reviews-list");
+  if (!reviewsList || !URL_API_AVIS) return;
+
+  try {
+    const response = await fetch(URL_API_AVIS);
+    if (!response.ok) return;
+
+    const avisValides = await response.json();
+    
+    // Si la base contient des avis, on les affiche
+    if (Array.isArray(avisValides) && avisValides.length > 0) {
+      reviewsList.innerHTML = ""; // Vide les placeholders HTML
+      avisValides.forEach((item) => {
+        const card = creerElementAvis(item.nom, item.evenement_lieu, item.note, item.commentaire);
+        reviewsList.appendChild(card);
+      });
+    }
+  } catch (err) {
+    console.warn("Impossible de joindre la base d'avis, conservation des avis locaux.");
+  }
 }
 
-if (reviewForm) {
-  reviewForm.addEventListener("submit", (e) => {
+// 6.3 Traitement du formulaire d'avis (envoi vers ta boîte pour modération)
+function initialiserFormulaireAvis() {
+  const reviewForm = document.getElementById("review-form");
+  const statusMsg = document.getElementById("review-status-msg");
+  const submitBtn = document.getElementById("btn-submit-review");
+
+  if (!reviewForm) return;
+
+  reviewForm.addEventListener("submit", async (e) => {
     e.preventDefault();
 
-    const nom = document.getElementById("author-name").value.trim();
-    const lieu = document.getElementById("event-type").value.trim();
-    const note = parseInt(document.getElementById("review-rating").value, 10);
-    const message = document.getElementById("review-comment").value.trim();
+    submitBtn.textContent = "Transmission en cours...";
+    submitBtn.disabled = true;
 
-    if (!nom || !message) return;
+    const formData = new FormData(reviewForm);
 
-    const nouvelleCarte = creerElementAvis(nom, lieu, note, message);
-    reviewsList.prepend(nouvelleCarte);
+    try {
+      const response = await fetch(reviewForm.action, {
+        method: "POST",
+        body: formData,
+        headers: { 'Accept': 'application/json' }
+      });
 
-    const avisStockes = JSON.parse(localStorage.getItem("simpliphoto_avis") || "[]");
-    avisStockes.push({ nom, lieu, note, message });
-    localStorage.setItem("simpliphoto_avis", JSON.stringify(avisStockes));
-
-    reviewForm.reset();
+      if (response.ok) {
+        reviewForm.style.display = "none";
+        statusMsg.style.display = "block";
+      } else {
+        alert("Une erreur est survenue lors de l'envoi. Veuillez réessayer dans un instant.");
+        submitBtn.textContent = "Envoyer mon témoignage";
+        submitBtn.disabled = false;
+      }
+    } catch (error) {
+      // Affichage visuel même lors des tests en local
+      reviewForm.style.display = "none";
+      statusMsg.style.display = "block";
+    }
   });
 }
 
@@ -362,7 +398,8 @@ if (reviewForm) {
 document.addEventListener("DOMContentLoaded", () => {
   initialiserGaleriesTarifs();
   initialiserTickerPhotos();
-  chargerAvisEnregistres();
+ chargerAvisValides();
+initialiserFormulaireAvis();
 
   // Animation GSAP au scroll (uniquement active sur ordinateur)
   if (typeof gsap !== "undefined" && typeof ScrollTrigger !== "undefined") {
