@@ -3,257 +3,17 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Demande de réservation — SimpliPhoto Strasbourg</title>
+  <title>SimpliPhoto Strasbourg — Photographie sur le vif</title>
   <link rel="stylesheet" href="style.css" />
-
-  <!-- =========================================================================
-       1. STYLES SPÉCIFIQUES AU FORMULAIRE GUIDÉ
-       ========================================================================= -->
-  <style>
-    /* 1.1 Correctif du bouton retour (suppression du soulignement) */
-    .btn-nav {
-      text-decoration: none !important;
-      display: inline-flex;
-      align-items: center;
-    }
-
-    /* 1.2 Mise en page globale */
-    .booking-page {
-      min-height: 100vh;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      padding: 5.5rem 1.5rem 3rem 1.5rem;
-      background-color: var(--bg-color);
-    }
-
-    .booking-card {
-      max-width: 640px;
-      margin: 0 auto;
-      width: 100%;
-      background: var(--card-bg);
-      border: 1px solid var(--card-border);
-      border-radius: var(--radius);
-      padding: 2.5rem 2rem;
-      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.04);
-      position: relative;
-    }
-
-    /* 1.3 Indicateur de progression (étapes 1, 2, 3) */
-    .step-progress {
-      display: flex;
-      gap: 0.5rem;
-      margin-bottom: 2rem;
-    }
-
-    .progress-bar {
-      flex: 1;
-      height: 4px;
-      background: var(--card-border);
-      border-radius: 2px;
-      transition: background 0.3s ease;
-    }
-
-    .progress-bar.active {
-      background: var(--accent);
-    }
-
-    /* 1.4 Affichage conditionnel des étapes */
-    .form-step {
-      display: none;
-    }
-
-    .form-step.active {
-      display: block;
-      animation: fadeInStep 0.3s ease-out;
-    }
-
-    @keyframes fadeInStep {
-      from { opacity: 0; transform: translateY(6px); }
-      to { opacity: 1; transform: translateY(0); }
-    }
-
-    .step-title {
-      font-size: 1.5rem;
-      font-weight: 700;
-      color: var(--text-main);
-      margin-bottom: 0.4rem;
-    }
-
-    .step-desc {
-      font-size: 0.95rem;
-      color: var(--text-muted);
-      margin-bottom: 1.8rem;
-    }
-
-    /* 1.5 Paliers de taux horaires (rappel dynamique) */
-    .rates-overview {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 0.6rem;
-      margin-bottom: 1.8rem;
-    }
-
-    .rate-pill {
-      background: var(--bg-color);
-      border: 1px solid var(--card-border);
-      border-radius: 12px;
-      padding: 0.75rem 0.6rem;
-      text-align: center;
-      transition: all 0.25s ease;
-      opacity: 0.6;
-    }
-
-    .rate-pill strong {
-      display: block;
-      font-size: 1.15rem;
-      color: var(--text-main);
-    }
-
-    .rate-pill span {
-      font-size: 0.75rem;
-      color: var(--text-muted);
-    }
-
-    .rate-pill.highlight {
-      opacity: 1;
-      border: 2px solid var(--accent);
-      background: var(--accent-bg);
-      transform: translateY(-2px);
-    }
-
-    .rate-pill.highlight strong {
-      color: var(--accent);
-    }
-
-    /* 1.6 Encadré de calcul en direct */
-    .live-summary {
-      background: var(--bg-subtle);
-      border: 1px solid var(--card-border);
-      border-radius: 14px;
-      padding: 1.2rem;
-      margin-top: 1.2rem;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-    }
-
-    .summary-label {
-      font-size: 0.9rem;
-      color: var(--text-muted);
-    }
-
-    .summary-label strong {
-      display: block;
-      color: var(--text-main);
-      font-size: 1.05rem;
-      margin-top: 0.2rem;
-    }
-
-    .summary-total {
-      text-align: right;
-    }
-
-    .summary-total .total-amount {
-      font-size: 1.8rem;
-      font-weight: 800;
-      color: var(--accent);
-      line-height: 1;
-    }
-
-    .summary-total .rate-applied {
-      font-size: 0.8rem;
-      color: var(--text-muted);
-      margin-top: 0.3rem;
-    }
-
-    /* 1.7 Boutons de navigation */
-    .step-buttons {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      margin-top: 2rem;
-      padding-top: 1.2rem;
-      border-top: 1px solid var(--card-border);
-    }
-
-    .btn-prev {
-      background: none;
-      border: none;
-      color: var(--text-muted);
-      font-weight: 600;
-      cursor: pointer;
-      padding: 0.8rem 1rem;
-    }
-
-    .btn-next {
-      background: var(--accent);
-      color: #fff;
-      border: none;
-      border-radius: 20px;
-      padding: 0.8rem 1.8rem;
-      font-weight: 600;
-      cursor: pointer;
-      transition: background 0.2s ease;
-    }
-
-    .btn-next:hover {
-      background: var(--accent-hover);
-    }
-
-    .btn-next:disabled {
-      background: #ccc;
-      cursor: not-allowed;
-    }
-
-    /* 1.8 Écran de confirmation */
-    .success-message {
-      display: none;
-      text-align: center;
-      padding: 2rem 1rem;
-    }
-
-    .success-icon {
-      font-size: 3rem;
-      color: var(--accent);
-      margin-bottom: 1rem;
-    }
-
-    /* 1.9 Adaptabilité mobile */
-    @media (max-width: 600px) {
-      .rates-overview {
-        grid-template-columns: 1fr;
-        gap: 0.4rem;
-      }
-      .rate-pill {
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        padding: 0.6rem 1rem;
-        text-align: left;
-      }
-      .live-summary {
-        flex-direction: column;
-        align-items: flex-start;
-        gap: 0.8rem;
-      }
-      .summary-total {
-        text-align: left;
-        width: 100%;
-        border-top: 1px solid rgba(0, 0, 0, 0.05);
-        padding-top: 0.6rem;
-      }
-    }
-  </style>
 </head>
 <body>
 
   <!-- =========================================================================
-       2. EN-TÊTE FIXE & BOUTON RETOUR
+       SECTION A : NAVIGATION PERMANENTE
        ========================================================================= -->
   <header class="navbar" role="banner">
     <div class="nav-container">
-      <a href="index.html" class="brand-logo" aria-label="Retour au site">
+      <a href="#accueil" class="brand-logo" aria-label="Retour à l'accueil">
         <svg class="logo-symbol" width="28" height="28" viewBox="0 0 28 28" fill="none" xmlns="http://www.w3.org/2000/svg">
           <rect x="2" y="7" width="24" height="17" rx="5" stroke="currentColor" stroke-width="2"/>
           <path d="M9 7V5C9 4.44772 9.44772 4 10 4H14C14.5523 4 15 4.44772 15 5V7" stroke="currentColor" stroke-width="2"/>
@@ -265,334 +25,433 @@
           <span class="brand-locality">Strasbourg</span>
         </div>
       </a>
-      <a href="index.html" class="btn-nav">← Retour au site</a>
+
+      <nav class="nav-links" aria-label="Menu principal">
+        <a href="#accueil">Accueil</a>
+        <a href="#a-propos">À propos</a>
+        <a href="#parcours">Parcours</a>
+        <a href="#deroulement">Déroulement</a>
+        <a href="#tarifs">Tarifs</a>
+        <a href="#avis">Avis</a>
+        <a href="#contact" class="btn-nav">Contact</a>
+      </nav>
     </div>
   </header>
 
   <!-- =========================================================================
-       3. CONTENU PRINCIPAL & FORMULAIRE GUIDÉ
+       CONTENU PRINCIPAL DU SITE
        ========================================================================= -->
-  <main class="booking-page">
-    <div class="booking-card">
+  <main id="contenu-principal">
+
+    <!-- -----------------------------------------------------------------------
+         GRANDE PARTIE 1 : IMMERSION & IDENTITÉ
+         ----------------------------------------------------------------------- -->
+    <div class="site-block block-hero-ambient">
       
-      <!-- 3.1 Jauge d'avancement -->
-      <div class="step-progress">
-        <div class="progress-bar active" id="prog-1"></div>
-        <div class="progress-bar" id="prog-2"></div>
-        <div class="progress-bar" id="prog-3"></div>
-      </div>
-
-      <!-- 3.2 Formulaire (Action Formspree ou Webhook) -->
-      <form id="reservation-form" action="https://formspree.io/f/ton_identifiant_ici" method="POST">
-
-        <!-- Données calculées transmises automatiquement au mail -->
-        <input type="hidden" id="form-duree" name="duree_totale" value="" />
-        <input type="hidden" id="form-taux" name="taux_horaire" value="" />
-        <input type="hidden" id="form-prix" name="estimation_totale" value="" />
-
-        <!-- -------------------------------------------------------------------
-             ÉTAPE 1 : Le contexte de l'événement
-             ------------------------------------------------------------------- -->
-        <div class="form-step active" id="step-1">
-          <h1 class="step-title">Parlons de votre fête</h1>
-
-          <div class="form-group">
-            <label for="event-name">Occasion / Nature de l'événement </label>
-            <input type="text" id="event-name" name="occasion" required placeholder="Ex. Anniversaire 30 ans, fête de famille, soirée privée..." />
+      <!-- 1.1 Accueil Hero avec zoom GSAP -->
+      <section id="accueil" class="hero-section">
+        <div class="hero-container">
+          <div class="hero-text">
+            <span class="badge">Strasbourg centre & proximité</span>
+            <h1>Un photographe pour vos soirées,<br> pourquoi pas ?</h1>
+            <p>Photographie événementielle dès 30 €.</p>
           </div>
-
-          <div class="form-row">
-            <div class="form-group">
-              <label for="event-date">Date prévue </label>
-              <input type="date" id="event-date" name="date" required />
-            </div>
-            <div class="form-group">
-              <label for="event-city">Lieu exact ou quartier </label>
-              <input type="text" id="event-city" name="lieu" required placeholder="Ex. Strasbourg Neudorf, Schiltigheim..." />
-            </div>
-          </div>
-
-          <div class="form-group">
-            <label for="event-guests">Nombre approximatif d'invités </label>
-            <input type="number" id="event-guests" name="nombre_invites" required min="2" max="1000" placeholder="Ex. 35" />
-          </div>
-
-          <div class="step-buttons">
-            <span></span>
-            <button type="button" class="btn-next" onclick="nextStep(1)">Continuer vers les horaires →</button>
+          <div class="image-wrapper">
+            <img class="zoomable" src="Images/generale/1.jpg" alt="Ambiance générale de fête" onerror="this.src='https://images.unsplash.com/photo-1511578314322-379afb476865?auto=format&fit=crop&w=1600&q=80'" />
           </div>
         </div>
+      </section>
 
-        <!-- -------------------------------------------------------------------
-             ÉTAPE 2 : Horaires précis & Taux dégressif dynamique
-             ------------------------------------------------------------------- -->
-        <div class="form-step" id="step-2">
-          <h2 class="step-title">Vos horaires de présence</h2>
-          <p class="step-desc">Renseignez l'heure de début et de fin. Le tarif dégressif s'adapte automatiquement.</p>
+      <!-- 1.2 Bandeau défilant infini de photos -->
+      <section class="photo-ticker-section" aria-label="Aperçu des reportages">
+        <div class="photo-ticker-track" id="photo-ticker-track"></div>
+      </section>
 
-          <!-- Paliers visuels -->
-          <div class="rates-overview">
-            <div class="rate-pill" id="pill-court">
-              <strong>30 € / h</strong>
-              <span>1 à 2 heures</span>
-            </div>
-            <div class="rate-pill" id="pill-standard">
-              <strong>28 € / h</strong>
-              <span>3 à 4 heures</span>
-            </div>
-            <div class="rate-pill" id="pill-immersion">
-              <strong>26 € / h</strong>
-              <span>5 h et plus</span>
-            </div>
+      <!-- 1.3 Chiffres clés rassurants -->
+      <section class="stats-bar" aria-label="Engagements de service">
+        <div class="container stats-grid">
+          <div class="stat-item">
+            <span class="stat-num">&lt; 48h</span>
+            <span class="stat-label">Pour recevoir vos photos numériques</span>
           </div>
-
-          <div class="form-row">
-            <div class="form-group">
-              <label for="time-start">Heure d'arrivée du photographe</label>
-              <input type="time" id="time-start" name="heure_debut" required />
-            </div>
-            <div class="form-group">
-              <label for="time-end">Heure de fin souhaitée</label>
-              <input type="time" id="time-end" name="heure_fin" required />
-            </div>
+          <div class="stat-item">
+            <span class="stat-num">0</span>
+            <span class="stat-label">Surprise ou frais cachés</span>
           </div>
-
-          <!-- Affichage du calcul direct -->
-          <div class="live-summary" id="live-summary" style="display: none;">
-            <div class="summary-label">
-              <span>Durée sélectionnée :</span>
-              <strong id="display-duration">0 heure</strong>
-            </div>
-            <div class="summary-total">
-              <div class="total-amount" id="display-price">0 €</div>
-              <div class="rate-applied" id="display-rate">Tarif appliqué : 0 € / h</div>
-            </div>
-          </div>
-
-          <p id="time-error" style="color: var(--accent); font-size: 0.85rem; margin-top: 0.6rem; display: none;">
-            Veuillez indiquer au moins 1 heure de présence.
-          </p>
-
-          <div class="step-buttons">
-            <button type="button" class="btn-prev" onclick="prevStep(2)">← Retour</button>
-            <button type="button" class="btn-next" id="btn-step-2" onclick="nextStep(2)">Valider ces horaires →</button>
+          <div class="stat-item">
+            <span class="stat-num">100 %</span>
+            <span class="stat-label">Souvenirs authentiques</span>
           </div>
         </div>
-
-        <!-- -------------------------------------------------------------------
-             ÉTAPE 3 : Coordonnées
-             ------------------------------------------------------------------- -->
-        <div class="form-step" id="step-3">
-          <h2 class="step-title">Vos coordonnées</h2>
-          <p class="step-desc">Pour vous transmettre la confirmation et le devis personnalisé.</p>
-
-          <div class="form-row">
-            <div class="form-group">
-              <label for="client-name">Nom et prénom</label>
-              <input type="text" id="client-name" name="nom_complet" required placeholder="Ex. Julie Meyer" />
-            </div>
-            <div class="form-group">
-              <label for="client-phone">Numéro de téléphone portable</label>
-              <input type="tel" id="client-phone" name="telephone" required placeholder="06 12 34 56 78" />
-            </div>
-          </div>
-
-          <div class="form-group">
-            <label for="client-email">Adresse e-mail de contact</label>
-            <input type="email" id="client-email" name="email" required placeholder="nom@exemple.com" />
-          </div>
-
-          <div class="form-group">
-            <label for="client-notes">Un mot ou une précision ? (facultatif)</label>
-            <textarea id="client-notes" name="remarques" rows="3" placeholder="Particularités du lieu, moments clés à ne pas manquer, questions diverses..."></textarea>
-          </div>
-
-          <div class="step-buttons">
-            <button type="button" class="btn-prev" onclick="prevStep(3)">← Retour</button>
-            <button type="submit" class="btn-next" id="btn-submit">Envoyer ma demande</button>
-          </div>
-        </div>
-
-      </form>
-
-      <!-- 3.3 Message de validation post-envoi -->
-      <div id="booking-success" class="success-message">
-        <div class="success-icon">✓</div>
-        <h2>Demande bien transmise !</h2>
-        <p style="color:var(--text-muted); margin-top:0.6rem; line-height: 1.6;">
-          Merci pour ces informations. Je consulte mes disponibilités sur ce créneau et je vous réponds par e-mail dans la journée.
-        </p>
-        <a href="index.html" class="contact-btn" style="margin-top:2rem;">Retour à l'accueil</a>
-      </div>
+      </section>
 
     </div>
+
+    <!-- -----------------------------------------------------------------------
+         GRANDE PARTIE 2 : APPROCHE & VISION PHOTOGRAPHIQUE
+         ----------------------------------------------------------------------- -->
+    <div class="site-block block-editorial">
+
+      <!-- 2.1 À Propos : Philosophie sur le vif -->
+      <section id="a-propos" class="section about-section">
+        <div class="container split-layout">
+          <div class="split-text">
+            <span class="section-tag">Le concept</span>
+            <h2>Et pourquoi pas ?</h2>
+            <p>
+              On a tous des événements qu'on aimerait immortaliser avec de vraies belles photos : un anniversaire, une crémaillère, une fête entre amis, un repas de famille. Mais personne ne prend de photographe pour ça. Trop cher, trop lourd à organiser, trop protocolaire... On se dit simplement : « ce n'est pas fait pour nous ».
+            </p>
+            <p>
+              Et pourquoi pas ? Vos événements du quotidien méritent eux aussi d'exister en grand.
+            </p>
+            <p>
+              Il suffisait de réinventer le concept avec une formule adaptée. Chez SimpliPhoto, on casse les codes avec un prix accessible et une approche sans prise de tête : pas de retouches, pas d'effets spéciaux, pas d'impression. Juste vos moments fidèlement retranscrits, pour profiter à 100 % de votre fête et en garder les plus beaux souvenirs.
+            </p>
+          </div>
+          <div class="split-image">
+            <img class="zoomable" src="Images/tarif-standard/1.jpg" alt="Instant de vie authentique" onerror="this.src='https://images.unsplash.com/photo-1511578314322-379afb476865?auto=format&fit=crop&w=800&q=80'" />
+          </div>
+        </div>
+      </section>
+
+      <!-- 2.2 Mosaïque visuelle éditoriale -->
+      <section class="section-mosaic" aria-label="Galerie de moments pris sur le vif">
+        <div class="container">
+          <div class="mosaic-grid">
+            <div class="mosaic-item item-large">
+              <img class="zoomable" src="Images/tarif-standard/2.jpg" alt="Moment sur le vif en soirée" onerror="this.src='https://images.unsplash.com/photo-1519671482749-fd09be7ccebf?auto=format&fit=crop&w=800&q=80'" />
+            </div>
+            <div class="mosaic-item item-tall">
+              <img class="zoomable" src="Images/tarif-premium/1.jpg" alt="Détail d'ambiance et lumières chaudes" onerror="this.src='https://images.unsplash.com/photo-1492684223066-81342ee5ff30?auto=format&fit=crop&w=800&q=80'" />
+            </div>
+            <div class="mosaic-item">
+              <img class="zoomable" src="Images/tarif-eco/1.jpg" alt="Sourire et complicité" onerror="this.src='https://images.unsplash.com/photo-1530103862676-de8c9debad1d?auto=format&fit=crop&w=800&q=80'" />
+            </div>
+            <div class="mosaic-item">
+              <img class="zoomable" src="Images/tarif-eco/2.jpg" alt="Rires partagés autour d'un verre" onerror="this.src='https://images.unsplash.com/photo-1511795409834-ef04bbd61622?auto=format&fit=crop&w=800&q=80'" />
+            </div>
+          </div>
+        </div>
+      </section>
+
+    </div>
+
+    <!-- -----------------------------------------------------------------------
+         GRANDE PARTIE 3 : L'ARTISAN & LA MÉTHODE
+         ----------------------------------------------------------------------- -->
+    <div class="site-block block-story-process">
+
+      <!-- 3.1 Mon Histoire / Ancrage strasbourgeois -->
+      <section id="parcours" class="section story-section">
+        <div class="container split-layout reverse">
+          <div class="split-image">
+            <img class="zoomable" src="Images/generale/1.jpg" alt="Reportage photo urbain à Strasbourg" onerror="this.src='https://images.unsplash.com/photo-1452587925148-ce544e77e70d?auto=format&fit=crop&w=800&q=80'" />
+          </div>
+          <div class="split-text">
+            <span class="section-tag">Le cheminement</span>
+            <h2>L'histoire de SimpliPhoto</h2>
+            <p>
+              Je m'appelle Quentin Toumazeau et je suis étudiant à l'université de Strasbourg. En 2023 j'ai acheté mon premier appareil photo, ce qui n'était au départ qu'une curiosité est rapidement devenu une passion.
+            </p>
+            <p>
+              Ce qui me motive avant tout, ce sont les rassemblements simples du quotidien : un anniversaire, une soirée entre amis, un repas de famille. Des moments chaleureux où l'on a rarement le temps de penser à prendre des photos, et où l'on regrette souvent de ne pas en avoir gardé une trace.
+            </p>
+            <p>
+              J'ai créé SimpliPhoto en partant d'une idée évidente : pourquoi les beaux souvenirs photographiques seraient-ils réservés à de grandes réceptions formelles ? Même le moment le plus simple mérite de laisser une trace de qualité.
+            </p>
+            <p>
+              Me confier vos souvenirs, c'est aussi me permettre d'évoluer : ce que je gagne est directement réinvesti dans mon matériel pour continuer d'apprendre et de progresser à vos côtés.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <!-- 3.2 Processus simple en 3 temps -->
+      <section id="deroulement" class="section process-section">
+        <div class="container">
+          <div class="section-header">
+            <span class="section-tag">Déroulement</span>
+            <h2>Simple du début à la fin.</h2>
+          </div>
+          <div class="process-grid">
+            <div class="process-card">
+              <div class="step-number">01</div>
+              <h3>La prise de contact</h3>
+              <p>Un message rapide pour bloquer la date, convenir du lieu et fixer le temps de présence souhaité.</p>
+            </div>
+            <div class="process-card">
+              <div class="step-number">02</div>
+              <h3>Pendant l'événement</h3>
+              <p>Règlement à l'arrivée du photographe pour le temps convenu. Zéro mise en scène : le photographe se fond dans la soirée pour en capturer les plus beaux moments.</p>
+            </div>
+            <div class="process-card">
+              <div class="step-number">03</div>
+              <h3>Livraison sous 48h</h3>
+              <p>Envoi du lien vers la galerie privée sécurisée sous 48h, prête à être partagée et téléchargée en haute définition.</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+    </div>
+
+    <!-- =======================================================================
+         TARIFS AU TAUX HORAIRE TRANSPARENT
+         ======================================================================= -->
+    <div class="site-block block-pricing">
+      <section id="tarifs" class="section pricing-section">
+        <div class="container">
+          <div class="section-header">
+            <span class="section-tag">Tarifs</span>
+            <h2>Choisissez simplement votre durée.</h2>
+            <p>Facturation simple au temps passé sur place. Plus la fête dure, plus le prix baisse.</p>
+          </div>
+
+          <div class="pricing-grid">
+
+            <!-- Formule 1 : Format Court -->
+            <article class="pricing-card">
+              <div class="pricing-gallery-showcase" id="gallery-eco"></div>
+              <div class="card-header">
+                <h3>Format Court</h3>
+                <p class="subtitle">Pour immortaliser un moment fort de l'évènement : apéritif, discours, découpe du gâteau et bien d'autres.                     </p>
+                <div class="price">30 € <span>/ heure</span></div>
+                <p class="extra-rate">1 à 2 heures de présence</p>
+              </div>
+              <a href="#contact" class="btn-card">Réserver le Format Court</a>
+            </article>
+
+            <!-- Formule 2 : Soirée & Fête (Mise en avant) -->
+            <article class="pricing-card featured">
+              <div class="card-badge">Le plus choisi</div>
+              <div class="pricing-gallery-showcase" id="gallery-standard"></div>
+              <div class="card-header">
+                <h3>Soirée & Fête</h3>
+                <p class="subtitle">La formule pour profiter pleinement de son événement du début au milieu de soirée.</p>
+                <div class="price">28 € <span>/ heure</span></div>
+                <p class="extra-rate">3 à 4 heures de présence</p>
+              </div>
+              <a href="#contact" class="btn-card primary">Réserver la Soirée</a>
+            </article>
+
+            <!-- Formule 3 : Immersion Totale -->
+            <article class="pricing-card">
+              <div class="pricing-gallery-showcase" id="gallery-premium"></div>
+              <div class="card-header">
+                <h3>Immersion Totale</h3>
+                <p class="subtitle">Présence continue pour les grands rassemblements, de l'arrivée jusqu'au bout de la nuit.</p>
+                <div class="price">26 € <span>/ heure</span></div>
+                <p class="extra-rate">5 heures et plus</p>
+              </div>
+              <a href="#contact" class="btn-card">Réserver l'Immersion</a>
+            </article>
+
+          </div>
+
+          <!-- Ce qui est inclus partout, sans surcharge -->
+          <div class="pricing-included">
+            <p><strong>Inclus quelle que soit la formule :</strong> Photos en HD • Galerie privée numérique sous 48h • Téléchargement libre et illimité pour tous vos invités.</p>
+          </div>
+
+        </div>
+      </section>
+    </div>
+    <!-- -----------------------------------------------------------------------
+         GRANDE PARTIE 5 : LIVRE D'OR & CONTACT
+         ----------------------------------------------------------------------- -->
+    <div class="site-block block-social-proof">
+
+<!-- 5.1 Témoignages & Ajout d'avis -->
+      <section id="avis" class="section reviews-section">
+        <div class="container">
+          <div class="section-header">
+            <span class="section-tag">Retour d'expérience</span>
+            <h2>Ce qu'ils en disent.</h2>
+            <p>Retours de fêtes et soirées capturées à Strasbourg.</p>
+          </div>
+
+          <!-- Liste des avis validés -->
+          <div class="reviews-grid" id="reviews-list">
+            
+            <article class="review-card">
+              <div class="review-stars">★★★★★</div>
+              <p class="review-text">« Au départ on hésitait pour une simple soirée d'anniversaire en appart, mais c'est tellement mieux que d'avoir chacun 3 vidéos floues sur nos portables. Super discret, Quentin a capté des moments de rires qu'on n'avait même pas remarqués. »</p>
+              <div class="review-author">
+                <strong>Léa & Antoine</strong>
+                <span>Anniversaire 25 ans — Strasbourg Krutenau</span>
+              </div>
+            </article>
+
+            <article class="review-card">
+              <div class="review-stars">★★★★★</div>
+              <p class="review-text">« Vraiment cool de ne pas avoir à courir partout pour prendre des photos pendant le pot de départ. Tout le monde était à l'aise, et recevoir le lien le surlendemain matin avec toutes les photos téléchargeables sans limite, c'est top. »</p>
+              <div class="review-author">
+                <strong>Mathieu</strong>
+                <span>Pot associatif — Neudorf</span>
+              </div>
+            </article>
+
+            <article class="review-card">
+              <div class="review-stars">★★★★★</div>
+              <p class="review-text">« Ambiance tamisée très réussie. Les lumières de la soirée sont bien rendues sans le coup de flash agressif qu'on redoutait. Tarif hyper réglo pour 4h de présence. »</p>
+              <div class="review-author">
+                <strong>Sonia</strong>
+                <span>Fête de famille — Schiltigheim</span>
+              </div>
+            </article>
+
+          </div>
+
+          <!-- Formulaire de soumission d'avis -->
+          <div class="review-form-wrapper">
+            <div class="review-form-card">
+              <h3>Laisser un mot sur votre soirée</h3>
+              <p class="form-subtitle">Vous étiez de la fête ? Partagez votre ressenti sur la prestation ou les photos.</p>
+              
+              <!-- Remplace l'action par ton lien d'envoi (ex. Formspree ou ton webhook) -->
+              <form id="review-form" action="https://formspree.io/f/ton_identifiant_ici" method="POST">
+                
+                <div class="form-row">
+                  <div class="form-group">
+                    <label for="author-name">Votre nom ou prénom *</label>
+                    <input type="text" id="author-name" name="nom" required placeholder="Ex. Thomas B." />
+                  </div>
+                  <div class="form-group">
+                    <label for="event-type">Événement & lieu *</label>
+                    <input type="text" id="event-type" name="evenement_lieu" required placeholder="Ex. Crémaillère — Strasbourg Gare" />
+                  </div>
+                </div>
+
+              <div class="form-group">
+  <label for="review-rating">Votre note *</label>
+  <select id="review-rating" name="note" required>
+    <option value="5" selected>★★★★★ (5/5 — Excellent)</option>
+    <option value="4">★★★★☆ (4/5 — Très bien)</option>
+    <option value="3">★★★☆☆ (3/5 — Moyen / Correct)</option>
+    <option value="2">★★☆☆☆ (2/5 — Décevant)</option>
+    <option value="1">★☆☆☆☆ (1/5 — Insatisfaisant)</option>
+  </select>
+</div>
+
+                <div class="form-group">
+                  <label for="review-comment">Votre message *</label>
+                  <textarea id="review-comment" name="commentaire" rows="4" required placeholder="Comment s'est passée la soirée ? Qu'avez-vous pensé de la discrétion et du résultat des photos ?"></textarea>
+                </div>
+
+                <button type="submit" class="contact-btn btn-submit-review" id="btn-submit-review">Envoyer mon témoignage</button>
+              </form>
+
+              <!-- Message de validation affiché à l'envoi -->
+              <div id="review-status-msg" style="display:none; text-align:center; padding:1.5rem 0;">
+                <p style="color:var(--accent); font-weight:700; font-size:1.1rem; margin-bottom:0.4rem;">Merci pour votre message !</p>
+                <p style="color:var(--text-muted); font-size:0.95rem;">Votre avis a été transmis et sera publié sur le site après relecture.</p>
+              </div>
+
+            </div>
+          </div>
+
+        </div>
+      </section>
+
+     <!-- 5.2 Contact direct & Prise de date -->
+      <section id="contact" class="section contact-section">
+        <div class="container narrow text-center">
+          <span class="section-tag">Contact</span>
+          <h2>Bloquons votre date.</h2>
+          <div class="contact-box">
+            <a href="reservation.html" class="contact-btn">
+              Faire une demande
+            </a>
+            <div class="contact-details">
+              <p>Disponibilités en semaine dès 18h et tout le week-end</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+    </div>
+
   </main>
 
   <!-- =========================================================================
-       4. LOGIQUE JAVASCRIPT DU FORMULAIRE
+       SECTION PIED DE PAGE (FOOTER)
        ========================================================================= -->
-  <script>
-    // 4.1 Sélecteurs du DOM
-    const startInput = document.getElementById("time-start");
-    const endInput = document.getElementById("time-end");
-    const summaryBox = document.getElementById("live-summary");
-    const durationLabel = document.getElementById("display-duration");
-    const priceLabel = document.getElementById("display-price");
-    const rateLabel = document.getElementById("display-rate");
-    const timeError = document.getElementById("time-error");
+  <footer role="contentinfo">
+    <p>© 2026 SimpliPhoto Strasbourg — Photographie événementielle. Micro-entreprise déclarée.</p>
+  </footer>
 
-    const pillCourt = document.getElementById("pill-court");
-    const pillStandard = document.getElementById("pill-standard");
-    const pillImmersion = document.getElementById("pill-immersion");
+  <!-- =========================================================================
+       COMPOSANTS D'INTERACTION FLOTTANTS
+       ========================================================================= -->
 
-    const hiddenDuree = document.getElementById("form-duree");
-    const hiddenTaux = document.getElementById("form-taux");
-    const hiddenPrix = document.getElementById("form-prix");
+  <!-- 1. Fenêtre Modale : Détails des formules -->
+  <div id="offer-modal" class="offer-modal" aria-hidden="true" role="dialog" aria-modal="true">
+    <div class="offer-modal-overlay"></div>
+    <div class="offer-modal-box">
+      <button class="offer-modal-close" id="offer-modal-close" aria-label="Fermer la fenêtre">&times;</button>
+      
+      <div class="offer-modal-header">
+        <span class="badge" id="modal-badge">Formule</span>
+        <h2 id="modal-title">Titre de l'offre</h2>
+        <div class="offer-modal-price" id="modal-price">0 €</div>
+      </div>
 
-    // 4.2 Calcul dynamique des heures et application du tarif dégressif
-    function recalculerTarif() {
-      const startVal = startInput.value;
-      const endVal = endInput.value;
+      <div class="offer-modal-gallery-wrap">
+        <div class="offer-modal-gallery" id="modal-gallery"></div>
+      </div>
 
-      if (!startVal || !endVal) {
-        summaryBox.style.display = "none";
-        resetPills();
-        return false;
-      }
+      <div class="offer-modal-body">
+        <div class="offer-detail-block">
+          <h3>Pour quel type d'événement ?</h3>
+          <p id="modal-target">Description du public ciblé.</p>
+        </div>
+        
+        <div class="offer-detail-block">
+          <h3>Pourquoi choisir ce tarif ?</h3>
+          <p id="modal-argument">Explication de la valeur ajoutée.</p>
+        </div>
 
-      const [startH, startM] = startVal.split(":").map(Number);
-      const [endH, endM] = endVal.split(":").map(Number);
+        <div class="offer-detail-block">
+          <h3>Ce qui est inclus concrètement :</h3>
+          <ul class="features" id="modal-included"></ul>
+        </div>
+      </div>
 
-      let totalMinutes = (endH * 60 + endM) - (startH * 60 + startM);
-      // Prise en charge des événements passant minuit
-      if (totalMinutes <= 0) {
-        totalMinutes += 24 * 60;
-      }
+      <div class="offer-modal-footer">
+        <a href="#contact" class="contact-btn" id="modal-cta-btn">Réserver ce créneau</a>
+      </div>
+    </div>
+  </div>
 
-      const exactHours = totalMinutes / 60;
+  <!-- 2. Visionneuse Plein Écran (Lightbox avec en-tête dédié) -->
+  <div id="lightbox" class="lightbox" aria-hidden="true" role="dialog" aria-modal="true">
+    <div class="lightbox-overlay" id="lightbox-backdrop"></div>
+    <div class="lightbox-frame">
+      <div class="lightbox-header">
+        <div class="lightbox-brand">
+          <svg class="logo-symbol" width="22" height="22" viewBox="0 0 28 28" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <rect x="2" y="7" width="24" height="17" rx="5" stroke="currentColor" stroke-width="2"/>
+            <path d="M9 7V5C9 4.44772 9.44772 4 10 4H14C14.5523 4 15 4.44772 15 5V7" stroke="currentColor" stroke-width="2"/>
+            <circle cx="14" cy="15.5" r="4.5" stroke="currentColor" stroke-width="2"/>
+            <circle cx="21" cy="11" r="1.25" fill="var(--accent)"/>
+          </svg>
+          <div class="brand-text">
+            <span class="brand-title">SimpliPhoto</span>
+            <span class="brand-locality">Strasbourg</span>
+          </div>
+        </div>
+        <button type="button" class="lightbox-close-btn" id="lightbox-close" aria-label="Fermer la vue">&times;</button>
+      </div>
 
-      if (exactHours < 1) {
-        timeError.style.display = "block";
-        summaryBox.style.display = "none";
-        resetPills();
-        return false;
-      }
+      <div class="lightbox-photo-wrap">
+        <img id="lightbox-img" src="" alt="Photo agrandie" />
+      </div>
+    </div>
+  </div>
 
-      timeError.style.display = "none";
-
-      // Arrondi au quart d'heure supérieur pour la facturation
-      const billedHours = Math.ceil(exactHours * 4) / 4;
-
-      let taux = 26;
-      resetPills();
-
-      if (billedHours <= 2) {
-        taux = 30;
-        pillCourt.classList.add("highlight");
-      } else if (billedHours <= 4) {
-        taux = 28;
-        pillStandard.classList.add("highlight");
-      } else {
-        taux = 26;
-        pillImmersion.classList.add("highlight");
-      }
-
-      const totalPrix = Math.round(billedHours * taux);
-
-      const hoursInt = Math.floor(exactHours);
-      const minsInt = Math.round((exactHours - hoursInt) * 60);
-      const formattedDuration = minsInt > 0 ? `${hoursInt} h ${minsInt} min` : `${hoursInt} heure${hoursInt > 1 ? "s" : ""}`;
-
-      durationLabel.textContent = `${formattedDuration} (${startVal} à ${endVal})`;
-      priceLabel.textContent = `${totalPrix} €`;
-      rateLabel.textContent = `Taux appliqué : ${taux} € / heure`;
-
-      hiddenDuree.value = `${formattedDuration} (de ${startVal} à ${endVal})`;
-      hiddenTaux.value = `${taux} € / h`;
-      hiddenPrix.value = `${totalPrix} €`;
-
-      summaryBox.style.display = "flex";
-      return true;
-    }
-
-    function resetPills() {
-      pillCourt.classList.remove("highlight");
-      pillStandard.classList.remove("highlight");
-      pillImmersion.classList.remove("highlight");
-    }
-
-    startInput.addEventListener("change", recalculerTarif);
-    endInput.addEventListener("change", recalculerTarif);
-
-    // 4.3 Navigation entre les étapes avec contrôle des champs obligatoires
-    function nextStep(current) {
-      const currentStepEl = document.getElementById(`step-${current}`);
-      const inputs = currentStepEl.querySelectorAll("input[required]");
-
-      for (const input of inputs) {
-        if (!input.value.trim()) {
-          input.focus();
-          return;
-        }
-      }
-
-      if (current === 2) {
-        const isValid = recalculerTarif();
-        if (!isValid) {
-          startInput.focus();
-          return;
-        }
-      }
-
-      currentStepEl.classList.remove("active");
-      const nextStepEl = document.getElementById(`step-${current + 1}`);
-      nextStepEl.classList.add("active");
-
-      document.getElementById(`prog-${current + 1}`).classList.add("active");
-    }
-
-    function prevStep(current) {
-      document.getElementById(`step-${current}`).classList.remove("active");
-      document.getElementById(`step-${current - 1}`).classList.add("active");
-      document.getElementById(`prog-${current}`).classList.remove("active");
-    }
-
-    // 4.4 Envoi asynchrone sans rechargement de page
-    const form = document.getElementById("reservation-form");
-    const successBox = document.getElementById("booking-success");
-    const progressEl = document.querySelector(".step-progress");
-
-    form.addEventListener("submit", async (e) => {
-      e.preventDefault();
-      const submitBtn = document.getElementById("btn-submit");
-      submitBtn.textContent = "Transmission en cours...";
-      submitBtn.disabled = true;
-
-      const formData = new FormData(form);
-
-      try {
-        const response = await fetch(form.action, {
-          method: "POST",
-          body: formData,
-          headers: { 'Accept': 'application/json' }
-        });
-
-        if (response.ok) {
-          form.style.display = "none";
-          progressEl.style.display = "none";
-          successBox.style.display = "block";
-        } else {
-          alert("Une erreur est survenue lors de l'envoi. Veuillez réessayer ou m'écrire directement par e-mail.");
-          submitBtn.textContent = "Envoyer ma demande";
-          submitBtn.disabled = false;
-        }
-      } catch (err) {
-        // Fallback local
-        form.style.display = "none";
-        progressEl.style.display = "none";
-        successBox.style.display = "block";
-      }
-    });
-  </script>
+  <!-- Scripts JavaScript & Bibliothèques -->
+  <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/ScrollTrigger.min.js"></script>
+  <script src="script.js"></script>
 </body>
 </html>
