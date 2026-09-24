@@ -89,7 +89,7 @@ function initialiserGaleriesTarifs() {
     container.appendChild(thumbWrap);
   });
 }
-/* ==========================================================================
+/* /* ==========================================================================
    3. BANDEAU DE PHOTOS DÉFILANTES (HERO TICKER INTERACTIF)
    ========================================================================== */
 function initialiserTickerPhotos() {
@@ -97,14 +97,11 @@ function initialiserTickerPhotos() {
   const parent = track ? track.parentElement : null;
   if (!track || !parent) return;
 
-  const imagesSources = [
-    "Images/tarif-eco/1.jpg",
-    "Images/tarif-standard/1.jpg",
-    "Images/tarif-premium/1.jpg",
-    "Images/tarif-standard/2.jpg",
-    "Images/tarif-eco/2.jpg",
-    "Images/tarif-premium/2.jpg"
-  ];
+  // Génération dynamique des photos de 3 à 20 dans le dossier Images/generale
+  const imagesSources = [];
+  for (let i = 3; i <= 20; i++) {
+    imagesSources.push(`Images/generale/${i}.jpg`);
+  }
 
   // Triplement de la liste pour garantir une boucle infinie continue
   const totalImages = [...imagesSources, ...imagesSources, ...imagesSources];
