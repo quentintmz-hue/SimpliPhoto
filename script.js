@@ -414,7 +414,7 @@ initialiserFormulaireAvis();
             trigger: ".hero-section",
             start: "top top",
             end: "+=100%",
-            scrub: true,
+            scrub: 0.5,
             pin: true
           }
         });
