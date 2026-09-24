@@ -389,14 +389,14 @@ function initialiserFormulaireAvis() {
   });
 }
 
-/*/* ==========================================================================
+/* ==========================================================================
    7. INITIALISATION GLOBALE & ANIMATION GSAP
    ========================================================================== */
 document.addEventListener("DOMContentLoaded", () => {
   initialiserGaleriesTarifs();
   initialiserTickerPhotos();
- chargerAvisValides();
-initialiserFormulaireAvis();
+  chargerAvisValides();
+  initialiserFormulaireAvis();
 
   // Animation GSAP au scroll (uniquement active sur ordinateur)
   if (typeof gsap !== "undefined" && typeof ScrollTrigger !== "undefined") {
@@ -413,18 +413,19 @@ initialiserFormulaireAvis();
           scrollTrigger: {
             trigger: ".hero-section",
             start: "top top",
-            end: "+=100%",
-            scrub: 0.5,
+            end: "+=35%", // Distance encore plus courte
+            scrub: true,  // Réactivité instantanée à la montée comme à la descente
             pin: true
           }
         });
 
         gsap.to(".image-wrapper", {
           scale: 1.05,
+          ease: "none",
           scrollTrigger: {
             trigger: ".hero-section",
             start: "top top",
-            end: "bottom top",
+            end: "+=35%",
             scrub: true
           }
         });
