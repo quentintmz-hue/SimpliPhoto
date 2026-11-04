@@ -582,6 +582,13 @@ body {
   opacity: 0.85;
 }
 
+/* --- MODIFICATION ICI : ÉTIREMENT DU CONTENEUR --- */
+.card-header {
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+}
+
 .card-header h3 {
   font-size: 1.5rem;
   font-weight: 700;
@@ -592,7 +599,13 @@ body {
 .card-header .subtitle {
   color: var(--text-muted);
   font-size: 0.95rem;
-  min-height: 48px;
+  margin-bottom: 1rem;
+}
+
+/* Description textuelle générique */
+.pricing-desc, 
+.pricing-card > p:not(.price):not(.extra-rate) {
+  flex-grow: 1; 
 }
 
 .btn-detail-link {
@@ -614,12 +627,14 @@ body {
   text-decoration: underline;
 }
 
+/* --- MODIFICATION ICI : POUSSE LE PRIX VERS LE BAS --- */
 .price {
+  margin-top: auto;
   font-size: 2.5rem;
   font-weight: 800;
   letter-spacing: -0.03em;
   color: var(--text-main);
-  margin: 1.2rem 0 0.2rem 0;
+  margin-bottom: 0.2rem;
 }
 
 .price span {
@@ -683,7 +698,6 @@ body {
 .btn-card.primary:hover {
   background: var(--accent-hover);
 }
-
 /* ==========================================================================
    10. MODALE DÉTAILS DE L'OFFRE (POPUP)
    ========================================================================== */
