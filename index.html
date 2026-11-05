@@ -3,7 +3,66 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>SimpliPhoto | Photographe Événements & Soirées à Strasbourg</title>
+
+  <!-- SEO Fondamental -->
+  <title>SimpliPhoto | Photographe Événements & Soirées à Strasbourg dès 30 €</title>
+  <meta name="description" content="SimpliPhoto : photographe à Strasbourg pour événements privés et professionnels dès 30 €. Soirées, anniversaires, afterworks : photos authentiques et sans retouche." />
+  <link rel="canonical" href="https://simpliphoto.fr/" />
+  <link rel="icon" type="image/svg+xml" href="favicon.svg" />
+
+  <!-- Open Graph / Réseaux sociaux -->
+  <meta property="og:type" content="website" />
+  <meta property="og:locale" content="fr_FR" />
+  <meta property="og:title" content="SimpliPhoto | Photographe Événements & Soirées à Strasbourg dès 30 €" />
+  <meta property="og:description" content="Photographie événementielle accessible à Strasbourg. Soirées, anniversaires, fêtes et afterworks : zéro pose forcée, zéro retouche artificielle." />
+  <meta property="og:url" content="https://simpliphoto.fr/" />
+  <meta property="og:site_name" content="SimpliPhoto" />
+  <meta property="og:image" content="https://simpliphoto.fr/Images/generale/1.jpg" />
+
+  <!-- Données structurées Google (Schema.org) -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "LocalBusiness",
+    "name": "SimpliPhoto",
+    "image": "https://simpliphoto.fr/Images/generale/1.jpg",
+    "url": "https://simpliphoto.fr",
+    "priceRange": "€",
+    "description": "Photographe événementiel à Strasbourg pour particuliers et entreprises dès 30 €. Anniversaires, soirées privées, afterworks et séminaires sans retouche ni artifice.",
+    "address": {
+      "@type": "PostalAddress",
+      "addressLocality": "Strasbourg",
+      "addressRegion": "Grand Est",
+      "addressCountry": "FR"
+    },
+    "geo": {
+      "@type": "GeoCoordinates",
+      "latitude": 48.5734,
+      "longitude": 7.7521
+    },
+    "areaServed": [
+      "Strasbourg",
+      "Schiltigheim",
+      "Illkirch-Graffenstaden",
+      "Bischheim",
+      "Lingolsheim",
+      "Ostwald"
+    ],
+    "hasOfferCatalog": {
+      "@type": "OfferCatalog",
+      "name": "Prestations Photographiques",
+      "itemListElement": [
+        {
+          "@type": "Offer",
+          "name": "Photographie événementielle standard",
+          "price": "30.00",
+          "priceCurrency": "EUR"
+        }
+      ]
+    }
+  }
+  </script>
+
   <link rel="stylesheet" href="style.css" />
 </head>
 <body>
@@ -13,8 +72,8 @@
        ========================================================================= -->
   <header class="navbar" role="banner">
     <div class="nav-container">
-      <a href="#accueil" class="brand-logo" aria-label="Retour à l'accueil">
-        <svg class="logo-symbol" width="28" height="28" viewBox="0 0 28 28" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <a href="#accueil" class="brand-logo" aria-label="SimpliPhoto - Retour à l'accueil">
+        <svg class="logo-symbol" width="28" height="28" viewBox="0 0 28 28" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
           <rect x="2" y="7" width="24" height="17" rx="5" stroke="currentColor" stroke-width="2"/>
           <path d="M9 7V5C9 4.44772 9.44772 4 10 4H14C14.5523 4 15 4.44772 15 5V7" stroke="currentColor" stroke-width="2"/>
           <circle cx="14" cy="15.5" r="4.5" stroke="currentColor" stroke-width="2"/>
@@ -53,34 +112,34 @@
         <div class="hero-container">
           <div class="hero-text">
             <span class="badge">Strasbourg centre & proximité</span>
-            <h1>Un photographe pour vos soirées,<br> pourquoi pas ?</h1>
-            <p>Photographie événementielle dès 30 €.</p>
+            <h1>Un photographe pour vos événements et soirées à Strasbourg</h1>
+            <p>Photographie accessible pour particuliers et professionnels dès 30 €.</p>
           </div>
           <div class="image-wrapper">
-            <img class="zoomable" src="Images/generale/1.jpg" alt="Ambiance générale de fête" onerror="this.src='https://images.unsplash.com/photo-1511578314322-379afb476865?auto=format&fit=crop&w=1600&q=80'" />
+            <img class="zoomable" src="Images/generale/1.jpg" alt="Reportage photo soirée et fête d'anniversaire à Strasbourg par SimpliPhoto" fetchpriority="high" onerror="this.src='https://images.unsplash.com/photo-1511578314322-379afb476865?auto=format&fit=crop&w=1600&q=80'" />
           </div>
         </div>
       </section>
 
       <!-- 1.2 Bandeau défilant infini de photos -->
-      <section class="photo-ticker-section" aria-label="Aperçu des reportages">
+      <section class="photo-ticker-section" aria-label="Aperçu des reportages photographiques à Strasbourg">
         <div class="photo-ticker-track" id="photo-ticker-track"></div>
       </section>
 
       <!-- 1.3 Chiffres clés rassurants -->
-      <section class="stats-bar" aria-label="Engagements de service">
+      <section class="stats-bar" aria-label="Engagements de service SimpliPhoto">
         <div class="container stats-grid">
           <div class="stat-item">
             <span class="stat-num">&lt; 48h</span>
-            <span class="stat-label">Pour recevoir vos photos numériques</span>
+            <span class="stat-label">Pour recevoir vos photos numériques en haute définition</span>
           </div>
           <div class="stat-item">
             <span class="stat-num">0</span>
-            <span class="stat-label">Surprise ou frais cachés</span>
+            <span class="stat-label">Surprise ou frais cachés dès 30 €</span>
           </div>
           <div class="stat-item">
             <span class="stat-num">100 %</span>
-            <span class="stat-label">Souvenirs authentiques</span>
+            <span class="stat-label">Souvenirs authentiques et sans retouche artificielle</span>
           </div>
         </div>
       </section>
@@ -92,24 +151,24 @@
          ----------------------------------------------------------------------- -->
     <div class="site-block block-editorial">
 
-      <!-- 2.1 À Propos : Philosophie sur le vif -->
+      <!-- 2.1 À Propos : Philosophie authentique et accessible -->
       <section id="a-propos" class="section about-section">
         <div class="container split-layout">
           <div class="split-text">
-            <span class="section-tag">Le concept</span>
-            <h2>Et pourquoi pas ?</h2>
+            <span class="section-tag">Le concept SimpliPhoto</span>
+            <h2>Et pourquoi pas un photographe pour vos événements du quotidien ?</h2>
             <p>
-              On a tous des événements qu'on aimerait immortaliser avec de vraies belles photos : un anniversaire, une crémaillère, une fête entre amis, un repas de famille. Mais personne ne prend de photographe pour ça. Trop cher, trop lourd à organiser, trop protocolaire... On se dit simplement : « ce n'est pas fait pour nous ».
+              On a tous des moments qu'on aimerait immortaliser avec de vraies belles photos : un anniversaire, une crémaillère, une fête entre amis, un repas de famille, ou encore un afterwork et un événement d'entreprise à Strasbourg. Mais personne ne prend de photographe pour ça. Trop cher, trop lourd à organiser, trop protocolaire... On se dit simplement : « ce n'est pas fait pour nous ».
             </p>
             <p>
-              Et pourquoi pas ? Vos événements du quotidien méritent eux aussi d'exister en grand.
+              Et pourquoi pas ? Vos événements privés comme professionnels méritent eux aussi d'exister en grand.
             </p>
             <p>
-              Il suffisait de réinventer le concept avec une formule adaptée. Chez SimpliPhoto, on casse les codes avec un prix accessible et une approche sans prise de tête : pas de retouches, pas d'effets spéciaux, pas d'impression. Juste vos moments fidèlement retranscrits, pour profiter à 100 % de votre fête et en garder les plus beaux souvenirs.
+              Il suffisait de réinventer le concept avec une formule adaptée. Chez SimpliPhoto, on casse les codes avec un tarif accessible dès 30 € et une approche sans prise de tête : pas de retouches artificielles, pas d'effets spéciaux, pas d'impression imposée. Juste vos moments fidèlement retranscrits en haute définition, pour profiter à 100 % de votre fête et en garder les plus beaux souvenirs.
             </p>
           </div>
           <div class="split-image">
-            <img class="zoomable" src="Images/generale/2.jpg" alt="Instant de vie authentique" onerror="this.src='https://images.unsplash.com/photo-1511578314322-379afb476865?auto=format&fit=crop&w=800&q=80'" />
+            <img class="zoomable" src="Images/generale/2.jpg" alt="Moment festif authentique capturé à Strasbourg sans retouche artificielle" loading="lazy" onerror="this.src='https://images.unsplash.com/photo-1511578314322-379afb476865?auto=format&fit=crop&w=800&q=80'" />
           </div>
         </div>
       </section>
