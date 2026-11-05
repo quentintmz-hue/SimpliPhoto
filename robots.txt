@@ -1,1 +1,66 @@
+# Robots.txt pour SimpliPhoto (simpliphoto.fr)
+# Accès universel autorisé pour tous les moteurs et robots d'exploration
 
+User-agent: *
+Allow: /
+
+# -----------------------------------------------------------------------------
+# ROBOTS D'IA, MOTEURS GÉNÉRATIFS ET AGENTS DE RECHERCHE CONVERSATIONNELS
+# -----------------------------------------------------------------------------
+
+# OpenAI (ChatGPT, SearchGPT, GPT-4 / o-series)
+User-agent: GPTBot
+Allow: /
+User-agent: ChatGPT-User
+Allow: /
+User-agent: OAI-SearchBot
+Allow: /
+
+# Google (Gemini, Google AI Overviews, Google Extended)
+User-agent: Google-Extended
+Allow: /
+User-agent: GoogleOther
+Allow: /
+
+# Anthropic (Claude)
+User-agent: ClaudeBot
+Allow: /
+User-agent: anthropic-ai
+Allow: /
+User-agent: Claude-Web
+Allow: /
+
+# Perplexity AI
+User-agent: PerplexityBot
+Allow: /
+
+# Meta (Llama, Meta AI)
+User-agent: Meta-ExternalAgent
+Allow: /
+User-agent: FacebookBot
+Allow: /
+
+# Mistral AI
+User-agent: MistralAI
+Allow: /
+
+# ByteDance / TikTok
+User-agent: Bytespider
+Allow: /
+
+# Cohere
+User-agent: cohere-ai
+Allow: /
+
+# Apple (Apple Intelligence / Applebot)
+User-agent: Applebot-Extended
+Allow: /
+
+# DuckDuckGo
+User-agent: DuckAssistBot
+Allow: /
+
+# -----------------------------------------------------------------------------
+# PLANS DU SITE ET FICHIERS DÉDIÉS AUX LLMS
+# -----------------------------------------------------------------------------
+Sitemap: https://simpliphoto.fr/sitemap.xml
